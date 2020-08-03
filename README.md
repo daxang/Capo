@@ -1,4 +1,4 @@
-#### Another repo https://github.com/imphila/capo_core_dart
+###### Another repo https://github.com/matteozero/Capo_Core_Dart
 # capo
 
 A new Flutter project.
