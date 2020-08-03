@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by philia on 2020/3/7.
+  Copyright © 2020 The Chromium Authors. All rights reserved.
+*/
+
+{
+"NSCameraUsageDescription" = "Need camera permission to scan QR code";
+"NSPhotoLibraryUsageDescription" = "Need photo library permission to scan QR code";
+}

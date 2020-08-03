@@ -1,0 +1,265 @@
+{
+    "appError": {
+        "genericError": "未知错误",
+        "addressError": {
+            "address_already_exist": "地址已存在"
+        },
+        "cameraPermission": "未开启相机权限",
+        "nothingScanned": "未扫描到二维码",
+        "formatNotSupported": "不支持的格式"
+
+
+    },
+    "exit_hint": "连按2次返回按钮退出 Capo",
+    "copy": "地址已复制",
+    "autoBySystem": "跟随系统",
+    "bottomTabBar": {
+        "balance": "余额",
+        "transactions": "转账记录",
+        "settings": "设置"
+    },
+    "balancePage": {
+        "receiveBtn": "收款",
+        "sendBtn": "转账"
+    },
+    "receivePage": {
+        "title": "接收 REV",
+        "copy": "复制",
+        "set_amount": "设置数额",
+        "set_amount_page": {
+            "title": "数额",
+            "hint": "数额"
+        }
+    },
+    "sendPage": {
+        "title": "发送 REV",
+        "to_hint": "收款地址",
+        "amount_hint": "输入数额",
+        "paste": "粘贴",
+        "max": "最大",
+        "balance": "余额: {} REV",
+        "btn_title": "下一步",
+        "incorrectAmount": "转账数额不正确",
+        "incorrectAddress": "钱包地址不正确",
+        "addressIsSame": "钱包地址不能相同",
+        "dialogBtn": "好的",
+        "incorrectAmountLength": "不能超过8位小数",
+        "greaterMaxAmount": "转账数额不能大于 {}",
+        "signing": "签名中···",
+        "sending": "发送中···",
+        "deploySuccess": "交易已发送,请等待确认",
+        "deployFailed": "交易发送失败",
+        "thanks_donate": "感谢您捐赠 Capo",
+        "photo": "相册",
+        "scan": "扫描",
+        "showModalBottomSheet":{
+            "title": "支付详情",
+            "to": "收款地址",
+            "from": "付款地址",
+            "fee": "手续费",
+            "btn_title": "下一步"
+        }
+
+    },
+    "wallet": {
+        "guide": {
+            "desc": "可组合 可互操作 可扩展",
+            "create": "创建钱包",
+            "restore": "导入钱包"
+        },
+        "create": {
+            "appBarTitle": "创建钱包",
+            "wallet_name": "钱包名称",
+            "wallet_password": "钱包密码",
+            "repeat_password": "重复输入密码",
+            "button_title": "创建",
+            "password_error": "不少于8位字符，建议混合大小写字母、数字、符号",
+            "password_mismatch": "密码不一致"
+        },
+        "backup": {
+            "tip": {
+                "backup_tip": "备份提示",
+                "desc": "获得助记词等于拥有钱包资产所有权",
+                "first_tip": "1. 该密码将作为钱包的交易密码。Capo 不会存储密码，也无法帮您找回，请务必妥善保管密码。",
+                "second_tip": "2. 助记词由英文单词组成，请抄写并妥善保管。",
+                "third_tip": "3. 助记词丢失，无法找回，请务必备份助记词。",
+                "next_btn": "下一步"
+            },
+            "show": {
+                "title": "助记词",
+                "confirm_btn": "确认备份"
+            },
+            "check": {
+                "title": "验证",
+                "desc": "从助记词中输入对应单词",
+                "word_mismatch": "单词不匹配",
+                "next_btn": "下一步",
+                "creating": "创建中···",
+                "success": "创建成功"
+            },
+            "wallet_exists": "钱包已存在"
+        },
+        "restore": {
+            "title": "导入钱包",
+            "mnemonic": "助记词",
+            "private_key": "私钥",
+            "from_mnemonic": {
+                "mnemonic_hint_text": "输入助记词单词，并使用单个空格分隔",
+                "mnemonic_not_validate": "助记词无效",
+                "importing": "导入中···",
+                "success": "导入成功",
+                "btnTitle": "导入"
+
+            },
+            "from_private_key": {
+                "private_key_hint_text": "输入明文私钥",
+                "private_key_not_validate": "私钥无效",
+                "importing": "导入中···",
+                "success": "导入成功",
+                "btnTitle": "导入"
+            }
+        }
+    },
+    "transactions": {
+        "title": "转账记录",
+        "warning": "目前转账记录是本地数据，非链上数据。删除 Capo 后所有转账数据会丢失。",
+        "no_transactions": "暂无记录"
+
+    },
+    "transaction_detail": {
+
+        "send_title": "发送详情",
+        "receive_title": "接收详情",
+        "pending": "等待确认···",
+        "success": "转账成功",
+        "failed": "转账失败",
+        "amount": "数额:",
+        "transaction_time": "交易时间:",
+        "transaction_fee": "手续费:",
+        "receive_address": "收款地址:",
+        "send_address": "付款地址:",
+        "copy_btn_title": "复制",
+        "copy_hint": "已复制"
+    },
+    "settings": {
+        "title": "设置",
+        "wallet": "钱包",
+        "language": "语言",
+        "dark_mode": "夜间模式",
+        "node_settings": "节点设置",
+        "about": "关于",
+
+        "wallets": {
+            "title": "钱包",
+            "detail": {
+                "title": "管理",
+                "change_wallet_name": "更换钱包名",
+                "export_private_key": "导出私钥",
+                "export_mnemonic_phrase": "导出助记词",
+                "delete_wallet": "删除钱包",
+                "switch_wallet": "切换钱包",
+                "copy_address": "复制地址",
+                "copied": "地址已复制",
+                "exporting": "导出中···",
+                "deleting": "删除中···",
+                "password_invalid": "密码无效",
+                "delete_alert": {
+                    "title": "你确定要删除这个钱包吗?",
+                    "content": "请确定你备份了钱包",
+                    "delete_btn_title": "删除",
+                    "cancel_btn_title": "取消"
+                },
+                "text_field_dialog": {
+                    "title": "更换钱包名",
+                    "btn_title": "确认"
+                },
+                "export_private_key_page": {
+                    "title": "导出私钥",
+                    "export_tip": "导出提示",
+                    "desc": "获得私钥等于拥有钱包资产所有权",
+                    "first_tip": "1. 不要向任何人分享你的私钥",
+                    "second_tip": "2. 不要通过网络传输私钥",
+                    "btn_title": "复制私钥",
+                    "copied": "已复制"
+                },
+                "export_mnemonic_page": {
+                    "title": "导出助记词",
+                    "export_tip": "导出提示",
+                    "desc": "获得助记词等于拥有钱包资产所有权",
+                    "first_tip": "1. 不要向任何人分享你的助记词",
+                    "second_tip": "2. 不要通过网络传输助记词",
+                    "btn_title": "复制助记词",
+                    "copied": "已复制"
+
+                }
+            }
+        },
+        "dark_mode_setting": {
+            "title": "夜间模式",
+            "auto": "跟随系统",
+            "dark": "深色",
+            "light": "浅色"
+        },
+        "note_settings": {
+            "title": "节点设置",
+            "readonly_node": "只读节点",
+            "validator_node": "验证节点",
+            "readonly_page": {
+                "title": "只读节点设置",
+                "official": "官方节点",
+                "custom": "自定义节点",
+                "add_custom_node": "添加自定义节点",
+                "warning": "请确认配置可信任第三方节点，避免产生潜在的风险。",
+                "understood": "知道了",
+                "text_dialog": {
+                    "title": "自定义节点",
+                    "label_text":"节点地址"
+                },
+                "node_address_not_validate": "请输入有效的节点地址",
+                "unable_to_connect_to_this_node": "节点通讯失败",
+                "node_already_exists": "节点已存在",
+                "testing": "测试中···",
+                "delete_node": "删除节点"
+
+
+            },
+            "validator_page": {
+                "title": "验证节点设置",
+                "official": "官方节点",
+                "custom": "自定义节点",
+                "add_custom_node": "添加自定义节点",
+                "warning": "请确认配置可信任第三方节点，避免产生潜在的风险。",
+                "understood": "知道了",
+                "text_dialog": {
+                    "title": "自定义节点",
+                    "label_text":"节点地址"
+                },
+                "node_address_not_validate": "Capo 钱包与验证节点间使用 gRPC 进行通讯，节点地址不能以http或https开头",
+                "unable_to_connect_to_this_node": "节点通讯失败",
+                "node_already_exists": "节点已存在",
+                "testing": "测试中···",
+                "port_error": "请输入正确端口",
+                "delete_node": "删除节点"
+            }
+
+        },
+        "about_page": {
+            "title": "关于",
+            "version_update": "检查更新",
+            "website": "官方网站",
+            "open": "打开",
+            "terms_and_privacy":{
+                "title": "条款和隐私",
+                "terms": "* Capo 是一款去中心化应用。其运作不依赖于特定的网络服务器或技术人员。您的资产安全的储存在 RChain 网络上，私钥是您的唯一资产凭证。\n* Capo 使用 Scrypt 算法加密您的私钥和助记词，您的私钥和助记词以 keystore 文件的形式保存在设备上。\n* 您的职责是备份私钥和助记词并保证其安全,记住您的钱包密码。绝对不要向任何人展示私钥和助记词。如果丢失，遗忘或被盗，您的资金将会被拥有私钥，助记词的人使用。\n* 不要对您的手机进行越狱或 root ，不要安装来源不明(不可靠)的应用。\n* Capo 是一款完全开源的应用，遵守[MIT](https://github.com/imphila/Capo/blob/master/LICENSE)协议,您可以通过[GitHub](https://github.com/imphila/Capo)查看源代码。\n* 如您喜欢 Capo ,您可以点此 [捐赠](capo://icapo.app/balance/send) Capo 。"
+            }
+        }
+    },
+    "password_dialog": {
+        "title": "输入密码",
+        "labelText": "密码",
+        "empty_password": "密码为空",
+        "password_length_error": "密码长度错误",
+        "btn_title": "确认"
+
+    }
+}

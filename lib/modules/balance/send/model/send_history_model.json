@@ -1,0 +1,13 @@
+{
+  "sendHistory":[
+    {
+      "type": "send",
+      "to": "",
+      "from": "",
+      "amount": "",
+      "deployID": "",
+      "status": "",
+      "minerFee": ""
+    }
+  ]
+}

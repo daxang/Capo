@@ -1,0 +1,29 @@
+
+{
+  "sections": [
+    [{
+      "url":"node1.root-shard.mainnet.rchain.coop:40401"
+    },{
+      "url":"node2.root-shard.mainnet.rchain.coop:40401"
+    },{
+      "url":"node3.root-shard.mainnet.rchain.coop:40401"
+    },{
+      "url":"node4.root-shard.mainnet.rchain.coop:40401"
+    },{
+      "url":"node5.root-shard.mainnet.rchain.coop:40401"
+    },{
+      "url":"node6.root-shard.mainnet.rchain.coop:40401"
+    },{
+      "url":"node7.root-shard.mainnet.rchain.coop:40401"
+    },{
+      "url":"node8.root-shard.mainnet.rchain.coop:40401"
+    }
+    ],
+    [
+
+    ]
+
+  ],
+
+  "selectedNode": null
+}

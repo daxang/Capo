@@ -1,0 +1,52 @@
+{
+  "sections": [
+    [{
+      "icon": "e850",
+      "iconFontFamily": "MaterialIcons",
+      "context": "settings.wallet",
+      "arrow": true,
+      "divideLine": false,
+      "url": "capo://icapo.app/settings/wallets"
+    }
+    ],
+    [{
+      "icon": "e894",
+      "iconFontFamily": "MaterialIcons",
+      "context": "settings.language",
+      "arrow": true,
+      "divideLine": true,
+      "url": "capo://icapo.app/settings/language"
+
+    },
+      {
+        "icon": "e90f",
+        "iconFontFamily": "MaterialIcons",
+        "context": "settings.dark_mode",
+        "arrow": true,
+        "divideLine": false,
+        "url": "capo://icapo.app/settings/dark_mode"
+      }
+    ],
+    [
+      {
+        "icon": "e869",
+        "iconFontFamily": "MaterialIcons",
+        "context": "settings.node_settings",
+        "arrow": true,
+        "divideLine": false,
+        "url": "capo://icapo.app/settings/node_settings"
+
+      }
+    ],
+    [{
+      "icon": "e88f",
+      "iconFontFamily": "MaterialIcons",
+      "context": "settings.about",
+      "arrow": true,
+      "divideLine": false,
+      "url": "capo://icapo.app/settings/about"
+
+    }
+    ]
+  ]
+}

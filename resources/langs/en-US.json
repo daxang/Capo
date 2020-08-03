@@ -1,0 +1,264 @@
+{
+    "appError": {
+        "genericError": "Unknown Error",
+        "addressError": {
+            "address_already_exist": "Address Already Exist"
+        },
+        "cameraPermission": "The user did not grant the camera permission!",
+        "nothingScanned": "Nothing scanned",
+        "formatNotSupported": "Format is not supported"
+
+    },
+    "exit_hint": "Exit Capo by pressing the back button twice",
+    "copy": "Address Copied",
+    "autoBySystem": "Auto",
+    "bottomTabBar": {
+        "balance": "Balance",
+        "transactions": "Transactions",
+        "settings": "Settings"
+    },
+    "balancePage": {
+        "receiveBtn": "Receive",
+        "sendBtn": "Send",
+        "receive": {
+            "title": ""
+        }
+    },
+    "receivePage": {
+        "title": "Receive REV",
+        "copy": "Copy",
+        "set_amount": "Set Amount",
+        "set_amount_page": {
+            "title": "Enter Amount",
+            "hint": "Amount"
+        }
+    },
+    "sendPage": {
+        "title": "Send REV",
+        "to_hint": "To",
+        "amount_hint": "Amount",
+        "paste": "Paste",
+        "max": "Max",
+        "balance": "Balance: {} REV",
+        "btn_title": "Next",
+        "incorrectAmount": "Incorrect Amount",
+        "incorrectAddress": "Incorrect Wallet Address",
+        "addressIsSame": "Recipient's address can not be same as sender's address",
+        "dialogBtn": "OK",
+        "incorrectAmountLength": "No more than 8 decimal places",
+        "greaterMaxAmount": "Amount cannot be greater than {}",
+        "signing": "Signing···",
+        "sending": "Sending···",
+        "deploySuccess": "The transaction has been sent, please wait for confirmation",
+        "deployFailed": "Send failed",
+        "thanks_donate": "Thank you for donating Capo",
+        "photo": "Photo",
+        "scan": "Scan",
+        "showModalBottomSheet":{
+            "title": "Payment Details",
+            "to": "To",
+            "from": "From",
+            "fee": "Fee",
+            "btn_title": "Next"
+        }
+    },
+    "wallet": {
+        "guide": {
+            "desc": "Combination  Interoperability  Scalable",
+            "create": "Create Wallet",
+            "restore": "Restore Wallet"
+        },
+        "create": {
+            "appBarTitle": "Create Wallet",
+            "wallet_name": "Wallet Name",
+            "wallet_password": "Wallet Password",
+            "repeat_password": "Repeat Password",
+            "button_title": "Create",
+            "password_error": "At least 8 characters,recommended to mix uppercase and lowercase alphabets,numbers and symbols",
+            "password_mismatch": "Password don't match"
+
+        },
+        "backup": {
+            "tip": {
+                "backup_tip": "Backup Tips",
+                "desc": "Obtaining mnemonic equals owning all assets",
+                "first_tip": "1. This password will be used as the transaction password for the wallet. Capo does not save password and cannot retrieve them for you.Please keep your password safe.",
+                "second_tip": "2. The mnemonic consists of English words,please transcribe and keep them safe.",
+                "third_tip": "3. Once the mnemonic gets lost,it cannot be retrieved. Please be sure to backup the mnemonic.",
+                "next_btn": "Next"
+            },
+            "show": {
+                "title": "Mnemonic",
+                "confirm_btn": "Confirmed backup"
+            },
+            "check": {
+                "title": "Check",
+                "desc": "Enter words from your mnemonic",
+                "word_mismatch": "word don't match",
+                "next_btn": "Next",
+                "creating": "Creating···",
+                "success": "Created successfully"
+
+            },
+            "wallet_exists": "Wallet already exists"
+        },
+        "restore": {
+            "title": "Restore Wallet",
+            "mnemonic": "Mnemonic",
+            "private_key": "Private Key",
+            "from_mnemonic": {
+                "mnemonic_hint_text": "Enter mnemonic phrases separated by a single space",
+                "mnemonic_not_validate": "Invalid Mnemonic",
+                "importing": "Restoring···",
+                "success": "Restore successfully",
+                "btnTitle": "Restore"
+            },
+            "from_private_key": {
+                "private_key_hint_text": "Enter Private Key",
+                "private_key_not_validate": "Invalid Private Key",
+                "importing": "Restoring···",
+                "success": "Restore successfully",
+                "btnTitle": "Restore"
+            }
+        }
+    },
+    "transactions": {
+        "title": "Transactions",
+        "warning": "The transactions are save in local by now, not on-chain data. All transactions will be lost after Capo is deleted.",
+        "no_transactions": "No Transactions"
+
+    },
+    "transaction_detail": {
+        "send_title": "Send Detail",
+        "receive_title": "Receive Detail",
+        "pending": "Pending···",
+        "success": "Success",
+        "failed": "Failed",
+        "amount": "Amount:",
+        "transaction_time": "Transaction Time:",
+        "transaction_fee": "Transaction Fee:",
+        "receive_address": "To:",
+        "send_address": "From:",
+        "copy_btn_title": "Copy",
+        "copy_hint": "Copied"
+    },
+    "settings": {
+        "title": "Settings",
+        "wallet": "Wallet",
+        "language": "Language",
+        "dark_mode": "Dark Mode",
+        "node_settings": "Node Settings",
+        "about": "About",
+
+        "wallets": {
+            "title": "Wallets",
+            "detail": {
+                "title": "Manage",
+                "change_wallet_name": "Change Wallet Name",
+                "export_private_key": "Export Private Key",
+                "export_mnemonic_phrase": "Export Mnemonic Phrase",
+                "delete_wallet": "Delete Wallet",
+                "switch_wallet": "Switch Wallet",
+                "copy_address": "Copy Address",
+                "copied": "Address Copied",
+                "exporting": "Exporting···",
+                "deleting": "Deleting···",
+                "password_invalid": "Invalid password",
+                "delete_alert": {
+                    "title": "Are you sure you would like to delete this wallet?",
+                    "content": "Make sure you have backup of your wallet",
+                    "delete_btn_title": "Delete",
+                    "cancel_btn_title": "Cancel"
+                },
+                "text_field_dialog": {
+                    "title": "Change Wallet Name",
+                    "btn_title": "Confirm"
+                },
+                "export_private_key_page": {
+                    "title": "Export Private Key",
+                    "export_tip": "Export Tips",
+                    "desc": "Obtaining private key equals owning all assets",
+                    "first_tip": "1. Never share your private keys with anyone",
+                    "second_tip": "2. Never transfer private keys over the network",
+                    "btn_title": "Copy Private Key",
+                    "copied": "Copied"
+
+                },
+                "export_mnemonic_page": {
+                    "title": "Export Mnemonic Phrase",
+                    "export_tip": "Export Tips",
+                    "desc": "Obtaining mnemonic equals owning all assets",
+                    "first_tip": "1. Never share your mnemonic with anyone",
+                    "second_tip": "2. Never transfer mnemonic over the network",
+                    "btn_title": "Copy Mnemonic Phrase",
+                    "copied": "Copied"
+
+                }
+            }
+        },
+        "dark_mode_setting": {
+            "title": "Dark Mode",
+            "auto": "Automatic",
+            "dark": "Dark",
+            "light": "Light"
+        },
+        "note_settings": {
+            "title": "Node Settings",
+            "readonly_node": "Readonly Node",
+            "validator_node": "Validator Node",
+            "readonly_page": {
+                "title": "Readonly Node Settings",
+                "official": "Official",
+                "custom": "Custom",
+                "add_custom_node": "Add Custom Node",
+                "warning": "Make sure to configure trusted third party nodes to avoid potential risks",
+                "understood": "Understood",
+                "text_dialog": {
+                    "title": "Custom Node",
+                    "label_text":"Node Address"
+                },
+                "node_address_not_validate": "Please enter a valid node address",
+                "unable_to_connect_to_this_node": "Unable to connect to node",
+                "testing": "Testing···",
+                "delete_node": "Delete Node"
+
+            },
+            "validator_page": {
+                "title": "Validator Node Settings",
+                "official": "Official",
+                "custom": "Custom",
+                "add_custom_node": "Add Custom Node",
+                "warning": "Make sure to configure trusted third party nodes to avoid potential risks",
+                "understood": "Understood",
+                "text_dialog": {
+                    "title": "Custom Node",
+                    "label_text":"Node Address"
+                },
+                "node_address_not_validate": "Capo Wallet uses gRPC for communication with the validator node. The node address cannot start with http or https.",
+                "unable_to_connect_to_this_node": "Unable to connect to node",
+                "testing": "Testing···",
+                "port_error": "Please enter the correct port",
+                "delete_node": "Delete Node"
+
+            }
+
+        },
+        "about_page": {
+            "title": "About",
+            "version_update": "Version Update",
+            "website": "Website",
+            "open": "Open",
+            "terms_and_privacy":{
+                "title": "Terms & Privacy",
+                "terms": "* Capo is a decentralized application. It does not depend on specific web server or tech support personnel to function. Your assets are securely stored on the RChain network, and your private key is your only asset certificate.\n * Capo uses the Scrypt algorithm encrypts your private key and mnemonic,  your private key and mnemonic are stored on the device in the form of a keystore file.\n * It's your responsibility to backup your private key and mnemonic and keep them private, do not forget the password for your wallet. Never show your private key and mnemonic to anyone. If it's lost, forgotten or stolen, your funds can be used by the person who has your private key or mnemonic.\n * Do not jailbreak or root your phone, don’t install apps from unknown (untrusted) sources. \n* Capo is completely open source, following the [MIT](https://github.com/imphila/Capo/blob/master/LICENSE) license, you  can view the source code through [GitHub](https://github.com/imphila/Capo).\n* If you like Capo, you can tap here to [donate](capo://icapo.app/balance/send) Capo."
+            }
+        }
+    },
+    "password_dialog": {
+        "title": "Enter Password",
+        "labelText": "Password",
+        "empty_password": "Password is empty",
+        "password_length_error": "Incorrect password length",
+        "btn_title": "Confirm"
+    }
+}
