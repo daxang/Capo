@@ -1,8 +1,4 @@
-import 'dart:convert';
-
 import 'package:barcode_scan/barcode_scan.dart';
-import 'package:capo/modules/balance/send/model/send_history_model.dart';
-import 'package:capo/utils/capo_storage_utils.dart';
 import 'package:capo/utils/capo_utils.dart';
 import 'package:capo/utils/dialog/capo_dialog_utils.dart';
 import 'package:capo/utils/rnode_networking.dart';
@@ -16,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
-import 'package:rxbus/rxbus.dart';
 
 class SendViewModel extends ChangeNotifier {
   String selfRevAddress = "";
@@ -118,7 +113,16 @@ class SendViewModel extends ChangeNotifier {
         revAddrTo: transferAddress,
         amount: amount);
 
-    var gRPC = await RNodeNetworking.gRPC;
+    var gRPC = await RNodeNetworking.gRPC.catchError((error) {
+      Navigator.pop(buildContext);
+      CapoDialogUtils.showCupertinoDialog(
+          buildContext: buildContext,
+          message: tr("sendPage.deployFailed") + ": " + error.toString());
+    });
+    if (!inProduction) {
+      print("grpc host:${gRPC.host}");
+      print("grpc port:${gRPC.port}");
+    }
     gRPC
         .sendDeploy(deployCode: term, privateKey: privateKey)
         .then((Map map) async {
@@ -134,7 +138,6 @@ class SendViewModel extends ChangeNotifier {
             buildContext: buildContext,
             message: tr("sendPage.deployFailed") + ": " + error.toString());
       } else {
-        await saveSendHistory(deployID);
         CapoDialogUtils.showCupertinoDialog(
             buildContext: buildContext,
             message: tr("sendPage.deploySuccess"),
@@ -156,37 +159,6 @@ class SendViewModel extends ChangeNotifier {
           buildContext: buildContext,
           message: tr("sendPage.deployFailed") + ": " + error.toString());
     });
-  }
-
-  saveSendHistory(String deployID) async {
-    TransactionHistory history = TransactionHistory(
-        type: TransactionType.send,
-        to: transferAddress,
-        from: selfRevAddress,
-        amount: transferAmount,
-        deployId: deployID,
-        status: TransactionStatus.pending,
-        timestamp: DateTime.now().millisecondsSinceEpoch.toString());
-    String jsonString = await CapoStorageUtils.shared
-        .readByAddress(address: selfRevAddress, key: kUserTransactions);
-    if (jsonString == null || jsonString.length == 0) {
-      TransactionHistoryModel model = TransactionHistoryModel();
-      model.transactionHistoryList = [history];
-      String modelString = json.encode(model.toJson());
-      await CapoStorageUtils.shared.saveByAddress(
-          address: selfRevAddress,
-          key: kUserTransactions,
-          content: modelString);
-      RxBus.post("", tag: "AddTransaction");
-      return;
-    }
-    TransactionHistoryModel model =
-        TransactionHistoryModel.fromJson(json.decode(jsonString));
-    model.transactionHistoryList.add(history);
-    String modelString = json.encode(model.toJson());
-    await CapoStorageUtils.shared.saveByAddress(
-        address: selfRevAddress, key: kUserTransactions, content: modelString);
-    RxBus.post("", tag: "AddTransaction");
   }
 
   getRevBalance(BuildContext context) {

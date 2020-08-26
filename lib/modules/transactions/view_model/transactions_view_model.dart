@@ -1,34 +1,21 @@
-import 'dart:convert';
-
-import 'package:capo/modules/balance/send/model/send_history_model.dart';
-import 'package:capo/utils/capo_storage_utils.dart';
+import 'package:capo/modules/transactions/model/transfer_state_info.dart';
+import 'package:capo/utils/rnode_networking.dart';
 import 'package:capo/utils/wallet_view_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 class TransactionsViewModel with ChangeNotifier {
-  TransactionHistoryModel historyModel;
+  TransferHistory historyModel;
+  BuildContext context;
+  Future getTransactions() async {
+    Response<List<dynamic>> response = await RNodeNetworking.rNodeStatusDio
+        .get("/api/transfer/${WalletViewModel.shared.currentWallet.address}");
+    RNodeNetworking.rNodeStatusDio.close();
 
-  getTransactions() async {
-    String jsonString = await CapoStorageUtils.shared.readByAddress(
-        address: WalletViewModel.shared.currentWallet.address,
-        key: kUserTransactions);
-    if (jsonString == null || jsonString.length == 0) {
-      historyModel = null;
-      notifyListeners();
-      return;
-    }
-    historyModel = TransactionHistoryModel.fromJson(json.decode(jsonString));
-    historyModel.transactionHistoryList.sort((left, right) {
-      return right.timestamp.compareTo(left.timestamp);
-    });
-
-    notifyListeners();
-  }
-
-  saveTransactions(String address) {
-    String jsonString = json.encode(historyModel.toJson());
-    CapoStorageUtils.shared.saveByAddress(
-        address: address, key: kUserTransactions, content: jsonString);
+    var arr0 = List<TransferHistoryItem>();
+    arr0 = response.data.map((e) => TransferHistoryItem.fromJson(e)).toList();
+    historyModel = TransferHistory();
+    historyModel.history = arr0;
     notifyListeners();
   }
 

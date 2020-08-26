@@ -18,8 +18,8 @@ String get versionUpdateUrl {
     return "https://icapo.app";
   } else {
     // return "https://icapo.app";
-
-    return "http://10.0.0.2:5000";
+    return "https://icapo.app";
+//    return "http://10.0.0.2:5000";
   }
 }
 
@@ -28,7 +28,7 @@ Future<UpdateEntity> fetchUpdateEntity() async {
   if (capoAppDeviceLocale.languageCode.toLowerCase() == "zh") {
     url = versionUpdateUrl + "/check_update/update_zh.json";
   }
-  final dio = Dio(BaseOptions(connectTimeout: 8000));
+  final dio = Dio(BaseOptions(connectTimeout: 60000));
   Response response = await dio.get(url);
   var data = jsonDecode(response.toString());
   UpdateInfo appInfo = UpdateInfo.fromJson(data);

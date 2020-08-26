@@ -225,6 +225,7 @@
             },
             "validator_page": {
                 "title": "验证节点设置",
+                "auto_selected": "自动选择最优节点",
                 "official": "官方节点",
                 "custom": "自定义节点",
                 "add_custom_node": "添加自定义节点",

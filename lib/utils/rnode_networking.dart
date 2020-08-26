@@ -1,36 +1,70 @@
 import 'package:capo/modules/settings/settings_modules/node_settings/view/readonly/view_model/readonly_view_model.dart';
+import 'package:capo/modules/settings/settings_modules/node_settings/view/validator/model/validator_cell_model.dart';
 import 'package:capo/modules/settings/settings_modules/node_settings/view/validator/view_model/validator_view_model.dart';
 import 'package:capo_core_dart/capo_core_dart.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
 
-const kCapoUserReadonlyNodeSettings = 'kCapoUserReadonlyNodeSettingsV0.0.6';
-const kCapoUserValidatorNodeSettings = 'kCapoUserValidatorNodeSettingsV0.0.6';
+const kCapoUserReadonlyNodeSettings = 'kCapoUserReadonlyNodeSettingsV0.0.9';
+const kCapoUserValidatorNodeSettings = 'kCapoUserValidatorNodeSettingsV0.0.9';
 
 class RNodeNetworking {
   static Future<RNodeGRPC> get gRPC async {
     var model = await ValidatorViewModel.getValidatorNodeSetting();
-    String baseUrl = model.selectedNode;
-    var s = baseUrl.split(':');
-    final String host = s.first;
-    final int port = int.parse(s.last);
-    return RNodeGRPC(host: host, port: port);
+    if (model.autoSelected) {
+//      if (!inProduction) {
+//        (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+//            (client) {
+//          client.findProxy = (url) {
+//            return "PROXY 127.0.0.1:8888";
+//          };
+//        };
+//      }
+      Response response = await rNodeStatusDio.get("/api/validators");
+      rNodeStatusDio.close();
+      CoopNodes bestValidatorModel = CoopNodes.fromJson(response.data);
+      if (bestValidatorModel.nextToPropose != null) {
+//        print(
+//            "bestValidatorModel:${bestValidatorModel.nextToPropose.grpcPort}");
+        return RNodeGRPC(
+            host: bestValidatorModel.nextToPropose.host,
+            port: bestValidatorModel.nextToPropose.grpcPort);
+      } else {
+        return RNodeGRPC(
+            host: model.validators.first.host,
+            port: model.validators.first.grpcPort);
+      }
+    } else {
+      CoopValidators selectedNode = model.selectedNode;
+      return RNodeGRPC(host: selectedNode.host, port: selectedNode.grpcPort);
+    }
   }
 
   static Future<Dio> get rNodeDio async {
     var model = await ReadonlyViewModel.getReadOnlyNodeSetting();
     String baseUrl = model.selectedNode;
-    Dio dio = Dio(BaseOptions(baseUrl: baseUrl, connectTimeout: 20000));
-    dio.interceptors
-        .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
+    Dio dio = Dio(BaseOptions(baseUrl: baseUrl, connectTimeout: 60000));
+//    if (!inProduction) {
+//      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+//          (client) {
+//        client.findProxy = (url) {
+//          return "PROXY 127.0.0.1:8888";
+//        };
+//      };
+//    }
     return dio;
   }
 
-  static Dio get transferStateDio {
-    String baseUrl = "https://revdefine.io/capo/";
-    Dio dio = Dio(BaseOptions(baseUrl: baseUrl, connectTimeout: 20000));
-    dio.interceptors
-        .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
+  static Dio get rNodeStatusDio {
+    Dio dio = Dio(BaseOptions(
+        baseUrl: "https://status.rchain.coop", connectTimeout: 60000));
+//    if (!inProduction) {
+//      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+//          (client) {
+//        client.findProxy = (url) {
+//          return "PROXY 127.0.0.1:8888";
+//        };
+//      };
+//    }
     return dio;
   }
 }

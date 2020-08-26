@@ -8,7 +8,6 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/public.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:rxbus/rxbus.dart';
 
 class WalletViewModel extends ChangeNotifier {
   Future<bool> ready;
@@ -49,7 +48,8 @@ class WalletViewModel extends ChangeNotifier {
     String term = checkBalanceRho(currentWallet.address);
     try {
       var rNodeDio = await RNodeNetworking.rNodeDio;
-      Response response = await rNodeDio.post("/api/explore-deploy", data: term);
+      Response response =
+          await rNodeDio.post("/api/explore-deploy", data: term);
 
       var data = jsonDecode(response.toString());
       BalanceModel model = BalanceModel.fromJson(data);
@@ -77,7 +77,6 @@ class WalletViewModel extends ChangeNotifier {
     notifyListeners();
     await getBalance();
     notifyListeners();
-    RxBus.post("", tag: "WalletChange");
   }
 
   modifyWalletName(BasicWallet wallet, String name) async {
@@ -89,7 +88,6 @@ class WalletViewModel extends ChangeNotifier {
     await walletManager.deleteWallet(wallet);
     getBalance();
     notifyListeners();
-    RxBus.post("", tag: "WalletChange");
     if (currentWallet == null && wallets.isEmpty) {
       Navigator.pushNamedAndRemoveUntil(context,
           "capo://icapo.app/wallet/guide", (Route<dynamic> route) => false);

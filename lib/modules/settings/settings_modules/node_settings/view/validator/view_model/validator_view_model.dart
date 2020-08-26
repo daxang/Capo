@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:capo/modules/settings/settings_modules/node_settings/view/validator/model/validator_cell_model.dart';
 import 'package:capo/utils/dialog/capo_dialog_utils.dart';
@@ -11,9 +10,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class ValidatorViewModel with ChangeNotifier {
-  ValidatorSections tableViewSections;
+  CoopNodes nodeModel;
   BuildContext _buildContext;
   loadJson(context) async {
+    RNodeNetworking.gRPC;
 //    String jsonString;
 //    jsonString = StorageManager.sharedPreferences
 //        .getString(kCapoUserValidatorNodeSettings);
@@ -33,23 +33,33 @@ class ValidatorViewModel with ChangeNotifier {
 //      await saveNodeSettings2Storage(tableViewSections);
 //    }
     var sections = await getValidatorNodeSetting();
-    tableViewSections = sections;
+    nodeModel = sections;
     notifyListeners();
     _buildContext = context;
   }
 
   cellTapped({@required int section, @required int row}) async {
-    String selectedNode = tableViewSections.sections[section][row].url;
-    if (selectedNode == tableViewSections.selectedNode) {
+    if (section == 0) {
+      nodeModel.autoSelected = true;
+      nodeModel.selectedNode = null;
+      String jsonString = json.encode(nodeModel.toJson());
+      await saveNodeSettings2Storage(jsonString);
+      notifyListeners();
       return;
     }
-    tableViewSections.selectedNode = selectedNode;
-    String jsonString = json.encode(tableViewSections.toJson());
+    CoopValidators selectedNode = nodeModel.validators[row];
+    if (selectedNode.host ==
+        (nodeModel.selectedNode != null ? nodeModel.selectedNode.host : "")) {
+      return;
+    }
+    nodeModel.autoSelected = false;
+    nodeModel.selectedNode = selectedNode;
+    String jsonString = json.encode(nodeModel.toJson());
     await saveNodeSettings2Storage(jsonString);
     notifyListeners();
   }
 
-  static Future<ValidatorSections> getValidatorNodeSetting() async {
+  static Future<CoopNodes> getValidatorNodeSetting() async {
     String jsonString;
     jsonString = StorageManager.sharedPreferences
         .getString(kCapoUserValidatorNodeSettings);
@@ -58,14 +68,14 @@ class ValidatorViewModel with ChangeNotifier {
           "lib/modules/settings/settings_modules/node_settings/view/validator/model/validator_sections.json");
     }
     final map = json.decode(jsonString);
-    ValidatorSections model = ValidatorSections.fromJson(map);
+    CoopNodes model = CoopNodes.fromJson(map);
 
-    if (model.selectedNode == null || model.selectedNode.length == 0) {
-      var index = Random().nextInt(model.sections.first.length);
-      model.selectedNode = model.sections.first.elementAt(index).url;
-      String jsonString = json.encode(model.toJson());
-      await saveNodeSettings2Storage(jsonString);
-    }
+//    if (model.selectedNode == null || model.selectedNode.length == 0) {
+//      var index = Random().nextInt(model.sections.first.length);
+//      model.selectedNode = model.sections.first.elementAt(index).url;
+//      String jsonString = json.encode(model.toJson());
+//      await saveNodeSettings2Storage(jsonString);
+//    }
     return model;
   }
 
@@ -99,17 +109,17 @@ class ValidatorViewModel with ChangeNotifier {
       return;
     }
 
-    for (List<Section> sections in tableViewSections.sections) {
-      for (Section section in sections) {
-        if (section.url == nodeUrl) {
-          CapoDialogUtils.showCupertinoDialog(
-              buildContext: _buildContext,
-              message: tr(
-                  "settings.note_settings.validator_page.node_already_exists"));
-          return;
-        }
-      }
-    }
+//    for (List<Section> sections in tableViewSections.sections) {
+//      for (Section section in sections) {
+//        if (section.url == nodeUrl) {
+//          CapoDialogUtils.showCupertinoDialog(
+//              buildContext: _buildContext,
+//              message: tr(
+//                  "settings.note_settings.validator_page.node_already_exists"));
+//          return;
+//        }
+//      }
+//    }
     CapoDialogUtils.showProcessIndicator(
         context: _buildContext,
         tip: tr("settings.note_settings.validator_page.testing"));
@@ -123,10 +133,10 @@ class ValidatorViewModel with ChangeNotifier {
       return;
     }
 
-    tableViewSections.sections.last.add(Section(url: nodeUrl));
-    String jsonString = json.encode(tableViewSections.toJson());
-    await saveNodeSettings2Storage(jsonString);
-    notifyListeners();
+//    tableViewSections.sections.last.add(Section(url: nodeUrl));
+//    String jsonString = json.encode(tableViewSections.toJson());
+//    await saveNodeSettings2Storage(jsonString);
+//    notifyListeners();
   }
 
   Future<bool> testNode(String nodeUrl) async {
@@ -151,15 +161,15 @@ class ValidatorViewModel with ChangeNotifier {
   }
 
   deleteNode(int section, int row) async {
-    String nodeUrl = tableViewSections.sections[section][row].url;
-    if (nodeUrl == tableViewSections.selectedNode) {
-      tableViewSections.selectedNode =
-          tableViewSections.sections.first.first.url;
-    }
-    tableViewSections.sections[section].removeAt(row);
-    String jsonString = json.encode(tableViewSections.toJson());
-    await saveNodeSettings2Storage(jsonString);
-    notifyListeners();
+//    String nodeUrl = tableViewSections.sections[section][row].url;
+//    if (nodeUrl == tableViewSections.selectedNode) {
+//      tableViewSections.selectedNode =
+//          tableViewSections.sections.first.first.url;
+//    }
+//    tableViewSections.sections[section].removeAt(row);
+//    String jsonString = json.encode(tableViewSections.toJson());
+//    await saveNodeSettings2Storage(jsonString);
+//    notifyListeners();
   }
 
   bool _disposed = false;

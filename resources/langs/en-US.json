@@ -225,6 +225,7 @@
             },
             "validator_page": {
                 "title": "Validator Node Settings",
+                "auto_selected": "Automatic",
                 "official": "Official",
                 "custom": "Custom",
                 "add_custom_node": "Add Custom Node",

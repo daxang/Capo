@@ -1,7 +1,6 @@
 import 'package:capo/modules/common/dialog/capo_textfield_dialog.dart';
 import 'package:capo/modules/settings/settings_modules/node_settings/view/validator/view_model/validator_view_model.dart';
 import 'package:capo/provider/provider_widget.dart';
-import 'package:capo/utils/capo_utils.dart';
 import 'package:easy_localization/public.dart';
 import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,149 +25,123 @@ class NodeSettingValidatorPage extends StatelessWidget {
           model: ValidatorViewModel(),
           onModelReady: (model) => model.loadJson(context),
           builder: (_, viewModel, __) {
-            return viewModel.tableViewSections == null
+            return viewModel.nodeModel == null
                 ? Container()
                 : Stack(
                     children: [
                       Container(
                         height: double.infinity,
                       ),
-                      Stack(
-                        children: [
-                          ConstrainedBox(
-                            constraints: BoxConstraints(
-                                maxHeight:
-                                    MediaQuery.of(context).size.height - 200),
-                            child: SectionTableView(
-                              divider: SizedBox(
-                                height: 1,
-                              ),
-                              sectionCount: viewModel.tableViewSections.sections
-                                          .last.length >
-                                      0
-                                  ? 2
-                                  : 1,
-                              numOfRowInSection: (section) {
-                                return viewModel
-                                    .tableViewSections.sections[section].length;
-                              },
-                              cellAtIndexPath: (section, row) {
-                                return Dismissible(
-                                  key: Key(viewModel.tableViewSections
-                                      .sections[section][row].url),
-                                  background: Container(
-                                    color: section == 0
-                                        ? Colors.transparent
-                                        : Colors.redAccent,
-                                  ),
-                                  onDismissed: (_) {
-                                    viewModel.deleteNode(section, row);
-                                  },
-                                  confirmDismiss: (direction) async {
-                                    if (section == 0) {
-                                      return false;
-                                    }
-                                    var isDismiss =
-                                        await _showDeleteAlertDialog(
-                                            context,
-                                            viewModel.tableViewSections
-                                                .sections[section][row].url);
-                                    return isDismiss;
-                                  },
-                                  child: Container(
-                                    color: Theme.of(context).cardColor,
-                                    child: ListTile(
-                                      onTap: () {
-                                        viewModel.cellTapped(
-                                            section: section, row: row);
-                                      },
-                                      title: ConstrainedBox(
-                                        constraints: BoxConstraints(
-                                            maxWidth: MediaQuery.of(context)
-                                                    .size
-                                                    .width -
-                                                200),
-                                        child: FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            viewModel.tableViewSections
-                                                .sections[section][row].url,
-                                            maxLines: 1,
-                                            style: TextStyle(fontSize: 14),
-                                          ),
+                      SectionTableView(
+                        divider: SizedBox(
+                          height: 1,
+                        ),
+                        sectionCount: 2,
+                        numOfRowInSection: (section) {
+                          if (section == 0) {
+                            return 1;
+                          }
+                          return viewModel.nodeModel.validators.length;
+                        },
+                        cellAtIndexPath: (section, row) {
+                          if (section == 0) {
+                            return Container(
+                              color: Theme.of(context).cardColor,
+                              child: ListTile(
+                                title: Text(tr(
+                                    "settings.note_settings.validator_page.auto_selected")),
+                                onTap: () {
+                                  viewModel.cellTapped(
+                                      section: section, row: row);
+                                },
+                                trailing: viewModel.nodeModel.autoSelected ==
+                                        true
+                                    ? Container(
+                                        width: 20.0,
+                                        height: 20.0,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Color.fromARGB(
+                                                255, 255, 255, 255)),
+                                        child: Icon(
+                                          Icons.check_circle,
+                                          size: 20,
+                                          color:
+                                              Color.fromARGB(255, 51, 118, 184),
                                         ),
+                                      )
+                                    : SizedBox(
+                                        width: 20,
+                                        height: 20,
                                       ),
-                                      trailing: viewModel.tableViewSections
-                                                  .selectedNode ==
-                                              viewModel.tableViewSections
-                                                  .sections[section][row].url
-                                          ? Container(
-                                              width: 20.0,
-                                              height: 20.0,
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Color.fromARGB(
-                                                      255, 255, 255, 255)),
-                                              child: Icon(
-                                                Icons.check_circle,
-                                                size: 20,
-                                                color: Color.fromARGB(
-                                                    255, 51, 118, 184),
-                                              ),
-                                            )
-                                          : SizedBox(
-                                              width: 20,
-                                              height: 20,
-                                            ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              headerInSection: (section) {
-                                return Container(
-                                    height: 50.0,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Text(section == 0
-                                          ? tr(
-                                              "settings.note_settings.validator_page.official")
-                                          : tr(
-                                              "settings.note_settings.validator_page.custom")),
-                                    ));
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          height: 50,
-                          child: Container(
+                              ),
+                            );
+                          }
+                          return Container(
                             color: Theme.of(context).cardColor,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Divider(
-                                  height: 2,
-                                ),
-                                Center(
-                                  child: FlatButton(
-                                    child: Text(
-                                      tr("settings.note_settings.validator_page.add_custom_node"),
-                                      style:
-                                          TextStyle(color: HexColor.mainColor),
-                                    ),
-                                    onPressed: () {
-                                      _showBottomSheet(viewModel, context);
-                                    },
+                            child: ListTile(
+                              onTap: () {
+                                viewModel.cellTapped(
+                                    section: section, row: row);
+                              },
+                              title: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width -
+                                            200),
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    viewModel.nodeModel.validators[row].host,
+                                    maxLines: 1,
+                                    style: TextStyle(fontSize: 14),
                                   ),
                                 ),
-                              ],
+                              ),
+                              trailing: ((viewModel.nodeModel.selectedNode !=
+                                                  null
+                                              ? viewModel
+                                                  .nodeModel.selectedNode.host
+                                              : "") ==
+                                          viewModel.nodeModel.validators[row]
+                                              .host) &&
+                                      (viewModel.nodeModel.autoSelected ==
+                                          false)
+                                  ? Container(
+                                      width: 20.0,
+                                      height: 20.0,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255)),
+                                      child: Icon(
+                                        Icons.check_circle,
+                                        size: 20,
+                                        color:
+                                            Color.fromARGB(255, 51, 118, 184),
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                    ),
                             ),
-                          )),
+                          );
+                        },
+//                        headerInSection: (section) {
+//                          return Container(
+//                              height: 50.0,
+//                              child: Padding(
+//                                padding: const EdgeInsets.all(16.0),
+//                                child: Text(section == 0
+//                                    ? tr(
+//                                        "settings.note_settings.validator_page.official")
+//                                    : tr(
+//                                        "settings.note_settings.validator_page.custom")),
+//                              ));
+//                        },
+                      )
                     ],
                   );
           },

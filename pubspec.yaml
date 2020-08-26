@@ -43,7 +43,7 @@ dependencies:
   oktoast: ^2.2.0+1
   rxdart: 0.23.1
   flutter_section_table_view: 1.0.5
-  dio: 3.0.9
+  dio: 3.0.10
   dio_http_cache: 0.2.6
   flutter_markdown: 0.3.4
   decimal: ^0.3.0
@@ -55,11 +55,11 @@ dependencies:
   firebase_core:  0.4.4+3
 
 #github
-  rxbus:
-    git:
-      url: https://github.com/imphila/FlutterRxBus.git
+#  rxbus:
+#    git:
+#      url: https://github.com/imphila/FlutterRxBus.git
   capo_core_dart:
-    path: /Users/matteo/Dev/Capo/packages/capo_core_dart
+    git: https://github.com/matteozero/Capo_Core_Dart.git
 
 
 dev_dependencies:
@@ -67,7 +67,8 @@ dev_dependencies:
     sdk: flutter
 
   ff_annotation_route:
-    path: /Users/matteo/Dev/Capo/packages/ff_annotation_route
+    git: https://github.com/imphila/ff_annotation_route.git
+#    path: /Users/matteo/Dev/Capo/packages/ff_annotation_route
 
 #    git:
 #      url: git://github.com/imphila/ff_annotation_route.git
