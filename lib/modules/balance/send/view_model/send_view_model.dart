@@ -105,7 +105,8 @@ class SendViewModel extends ChangeNotifier {
 
   doDeploy(String privateKey) async {
     CapoDialogUtils.showProcessIndicator(
-        context: buildContext, tip: tr("sendPage.sending"));
+        context: buildContext, tip: tr("sendPage.fetching_node"));
+
     int amount =
         (Decimal.parse(transferAmount) * Decimal.fromInt(10e7.toInt())).toInt();
     String term = transferFundsRho(
@@ -119,6 +120,9 @@ class SendViewModel extends ChangeNotifier {
           buildContext: buildContext,
           message: tr("sendPage.deployFailed") + ": " + error.toString());
     });
+    Navigator.pop(buildContext);
+    CapoDialogUtils.showProcessIndicator(
+        context: buildContext, tip: tr("sendPage.sending"));
     if (!inProduction) {
       print("grpc host:${gRPC.host}");
       print("grpc port:${gRPC.port}");

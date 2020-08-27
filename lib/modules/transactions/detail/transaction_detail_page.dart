@@ -18,6 +18,21 @@ class TransactionDetail extends StatefulWidget {
 }
 
 class _TransactionDetailState extends State<TransactionDetail> {
+  String getTransferState(TransferHistoryItem transaction){
+    if(transaction.fromAddr == WalletViewModel.shared.currentWallet.address){
+      if(transaction.success) {
+        return tr("transaction_detail.transfer_success");
+      }else{
+        return tr("transaction_detail.transfer_failed");
+      }
+    }else{
+      if(transaction.success) {
+        return tr("transaction_detail.receive_success");
+      }else{
+        return tr("transaction_detail.receive_failed");
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     Map map = ModalRoute.of(context).settings.arguments;
@@ -61,9 +76,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
                   height: 8,
                 ),
                 Text(
-                  transaction.success
-                      ? tr("transaction_detail.success")
-                      : tr("transaction_detail.failed"),
+                 getTransferState(transaction),
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
                 SizedBox(

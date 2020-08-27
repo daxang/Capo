@@ -24,12 +24,14 @@ class _TransactionsPageState extends State<TransactionsPage>
   final TransactionsViewModel _transactionsViewModel = TransactionsViewModel();
   GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
+
+
   @override
   void initState() {
     super.initState();
     refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       refreshIndicatorKey.currentState.show();
     });
   }

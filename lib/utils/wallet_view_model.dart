@@ -51,8 +51,7 @@ class WalletViewModel extends ChangeNotifier {
       Response response =
           await rNodeDio.post("/api/explore-deploy", data: term);
 
-      var data = jsonDecode(response.toString());
-      BalanceModel model = BalanceModel.fromJson(data);
+      BalanceModel model = BalanceModel.fromJson(response.data);
       final error = model.expr.first.exprString.data;
       if (error == null) {
         final balanceInt = model.expr.first.exprInt.data != null &&

@@ -5,7 +5,64 @@
     "grpcPort": 40401,
     "httpPort": 443
   },
-  "validators": [{
+  "validators": [
+  {
+      "host": "node1.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node2.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node3.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node4.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node5.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node6.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node7.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node8.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node9.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node10.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node11.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node12.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node13.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    }, {
+      "host": "node14.root-shard.mainnet.rchain.coop",
+      "grpc_port": 40401,
+      "http_port": 443
+    },{
     "host": "node15.root-shard.mainnet.rchain.coop",
     "grpc_port": 40401,
     "http_port": 443
@@ -23,66 +80,6 @@
     "http_port": 443
   }, {
     "host": "node19.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node0.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node1.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node2.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node3.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node4.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node5.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node6.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node7.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node8.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node9.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node10.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node11.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node12.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node13.root-shard.mainnet.rchain.coop",
-    "grpc_port": 40401,
-    "http_port": 443
-  }, {
-    "host": "node14.root-shard.mainnet.rchain.coop",
     "grpc_port": 40401,
     "http_port": 443
   }]

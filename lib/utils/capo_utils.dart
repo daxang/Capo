@@ -30,8 +30,7 @@ Future<UpdateEntity> fetchUpdateEntity() async {
   }
   final dio = Dio(BaseOptions(connectTimeout: 60000));
   Response response = await dio.get(url);
-  var data = jsonDecode(response.toString());
-  UpdateInfo appInfo = UpdateInfo.fromJson(data);
+  UpdateInfo appInfo = UpdateInfo.fromJson(response.data);
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   Version currentVersion = Version.parse(packageInfo.version);
   Version latestVersion = Version.parse(appInfo.versionName);
