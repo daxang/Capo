@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/public.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:rxbus/rxbus.dart';
 
 class WalletViewModel extends ChangeNotifier {
   Future<bool> ready;
@@ -73,6 +74,7 @@ class WalletViewModel extends ChangeNotifier {
   switchWallet(BasicWallet wallet) async {
     await walletManager.switchWallet(wallet);
     revBalance = "--";
+    RxBus.post("SwitchWallet",tag: "WalletChanged");
     notifyListeners();
     await getBalance();
     notifyListeners();
@@ -85,6 +87,7 @@ class WalletViewModel extends ChangeNotifier {
 
   deleteWallet(BuildContext context, BasicWallet wallet) async {
     await walletManager.deleteWallet(wallet);
+    RxBus.post("SwitchWallet",tag: "WalletChanged");
     getBalance();
     notifyListeners();
     if (currentWallet == null && wallets.isEmpty) {

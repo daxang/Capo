@@ -1,5 +1,7 @@
 import 'package:capo/modules/balance/view/balance_card.dart';
 import 'package:capo/utils/capo_utils.dart';
+import 'package:capo/utils/rnode_networking.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/public.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,10 @@ import 'package:flutter/material.dart';
 class BalanceHomePage extends StatelessWidget {
   final _assetCard = AssetCard();
   Future _refresh() async {
-    return _assetCard.viewModel.getBalance(showLoading: false);
+
+   Response response = await RNodeNetworking.revdefineDio.get("/api/validators");
+   print("response:${response.data}");
+//    return _assetCard.viewModel.getBalance(showLoading: false);
   }
 
   @override

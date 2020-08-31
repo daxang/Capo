@@ -33,10 +33,13 @@ class WalletDetailViewModel extends ChangeNotifier {
         });
   }
 
-  tappedSwitchWallet() {
+  tappedSwitchWallet() async {
     if (walletViewModel != null) {
-      walletViewModel.switchWallet(wallet);
+      CapoDialogUtils.showProcessIndicator(context: context,tip: tr("settings.wallets.detail.switching"));
+      await walletViewModel.switchWallet(wallet);
       Navigator.pop(context);
+      Navigator.pop(context);
+
     }
   }
 

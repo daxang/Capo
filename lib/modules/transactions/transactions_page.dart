@@ -5,6 +5,7 @@ import 'package:capo/utils/capo_utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/material.dart';
+import 'package:rxbus/rxbus.dart';
 
 import 'model/transfer_state_info.dart';
 
@@ -30,6 +31,13 @@ class _TransactionsPageState extends State<TransactionsPage>
   void initState() {
     super.initState();
     refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+
+    RxBus.register<String>(tag: "WalletChanged")
+        .listen((event) => setState(() {
+          if(event == "SwitchWallet"){
+            refreshIndicatorKey.currentState.show();
+          }
+    }));
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       refreshIndicatorKey.currentState.show();
@@ -61,9 +69,9 @@ class _TransactionsPageState extends State<TransactionsPage>
               model: _transactionsViewModel,
               builder: (_, viewModel, __) {
                 return ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: viewModel.historyModel == null
+//                    scrollDirection: Axis.vertical,
+//                    shrinkWrap: true,
+                    itemCount: (viewModel.historyModel == null || viewModel.historyModel.history.length == 0)
                         ? 1
                         : viewModel.historyModel.history.length,
                     itemBuilder: (context, index) {
@@ -90,6 +98,9 @@ class _TransactionsPageState extends State<TransactionsPage>
                                       .caption
                                       .color),
                             ),
+//                            SizedBox(
+//                              height: 1000,
+//                            ),
                           ],
                         );
                       }

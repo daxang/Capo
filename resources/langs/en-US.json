@@ -136,7 +136,7 @@
         "transfer_success": "Send Success",
         "transfer_failed": "Send Failed",
         "receive_success": "Receive Success",
-        "receive_failed": "Receive Success",
+        "receive_failed": "Receive Failed",
         "amount": "Amount:",
         "transaction_time": "Transaction Time:",
         "transaction_fee": "Transaction Fee:",
@@ -162,6 +162,7 @@
                 "export_mnemonic_phrase": "Export Mnemonic Phrase",
                 "delete_wallet": "Delete Wallet",
                 "switch_wallet": "Switch Wallet",
+                "switching": "Switch···",
                 "copy_address": "Copy Address",
                 "copied": "Address Copied",
                 "exporting": "Exporting···",
@@ -254,7 +255,7 @@
             "open": "Open",
             "terms_and_privacy":{
                 "title": "Terms & Privacy",
-                "terms": "* Capo is a decentralized application. It does not depend on specific web server or tech support personnel to function. Your assets are securely stored on the RChain network, and your private key is your only asset certificate.\n * Capo uses the Scrypt algorithm encrypts your private key and mnemonic,  your private key and mnemonic are stored on the device in the form of a keystore file.\n * It's your responsibility to backup your private key and mnemonic and keep them private, do not forget the password for your wallet. Never show your private key and mnemonic to anyone. If it's lost, forgotten or stolen, your funds can be used by the person who has your private key or mnemonic.\n * Do not jailbreak or root your phone, don’t install apps from unknown (untrusted) sources. \n* Capo is completely open source, following the [MIT](https://github.com/imphila/Capo/blob/master/LICENSE) license, you  can view the source code through [GitHub](https://github.com/imphila/Capo).\n* If you like Capo, you can tap here to [donate](capo://icapo.app/balance/send) Capo."
+                "terms": "* Capo is a mobile wallet developed for RChain. Your assets are securely stored on the RChain network, and your private key is your only asset certificate.\n * Capo uses the Scrypt algorithm encrypts your private key and mnemonic,  your private key and mnemonic are stored on the device in the form of a keystore file.\n * It's your responsibility to backup your private key and mnemonic and keep them private, do not forget the password for your wallet. Never show your private key and mnemonic to anyone. If it's lost, forgotten or stolen, your funds can be used by the person who has your private key or mnemonic.\n * Do not jailbreak or root your phone, don’t install apps from unknown (untrusted) sources. \n* Capo is completely open source, following the [MIT](https://github.com/matteozero/Capo/blob/master/LICENSE) license, you  can view the source code through [GitHub](https://github.com/matteozero/Capo).\n* If you like Capo, you can tap here to [donate](capo://icapo.app/balance/send) Capo."
             }
         }
     },

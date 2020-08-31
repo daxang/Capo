@@ -11,7 +11,7 @@ description: RChain Mobile Wallet
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.0.9
+version: 0.1.0
 
 environment:
   sdk: ">=2.8.0 <3.0.0"
@@ -55,11 +55,11 @@ dependencies:
   firebase_core:  0.4.4+3
 
 #github
-#  rxbus:
-#    git:
-#      url: https://github.com/imphila/FlutterRxBus.git
   capo_core_dart:
     git: https://github.com/matteozero/Capo_Core_Dart.git
+
+  rxbus:
+    git: https://github.com/imphila/FlutterRxBus.git
 
 
 dev_dependencies:
@@ -69,9 +69,6 @@ dev_dependencies:
   ff_annotation_route:
     git: https://github.com/imphila/ff_annotation_route.git
 #    path: /Users/matteo/Dev/Capo/packages/ff_annotation_route
-
-#    git:
-#      url: git://github.com/imphila/ff_annotation_route.git
 
 
 
