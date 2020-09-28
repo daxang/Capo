@@ -38,46 +38,47 @@ class RNodeNetworking {
     var model = await ReadonlyViewModel.getReadOnlyNodeSetting();
     String baseUrl = model.selectedNode;
     Dio dio = Dio(BaseOptions(baseUrl: baseUrl, connectTimeout: 60000));
-    if (!inProduction) {
-      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (client) {
-        client.findProxy = (url) {
-          return "PROXY 127.0.0.1:9999";
-        };
-      };
-    }
+    // if (!inProduction) {
+    //   (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //       (client) {
+    //     client.findProxy = (url) {
+    //       return "PROXY 127.0.0.1:9999";
+    //     };
+    //   };
+    // }
     return dio;
   }
 
   static Dio get rNodeStatusDio {
     Dio dio = Dio(BaseOptions(
         baseUrl: "https://status.rchain.coop", connectTimeout: 60000));
-    if (!inProduction) {
-      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (client) {
-        client.findProxy = (url) {
-          return "PROXY 127.0.0.1:9999";
-        };
-      };
-    }
+    // if (!inProduction) {
+    //   (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //       (client) {
+    //     client.findProxy = (url) {
+    //       return "PROXY 127.0.0.1:9999";
+    //     };
+    //   };
+    // }
     return dio;
   }
 
-  static Dio get revdefineDio {
-//    http://revdefine.io:7070/
-    Dio dio = Dio(BaseOptions(
-        baseUrl: "https://revdefine.io", connectTimeout: 60000));
-    if (!inProduction) {
-      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (client) {
-        client.findProxy = (url) {
-          return "PROXY 192.168.110.143:9999";
-        };
-      };
-    }
-    return dio;
-  }
-
-
+//  static Dio get revdefineDio {
+// ////    http://revdefine.io:7070/
+// //    Dio dio = Dio(BaseOptions(
+// //        baseUrl: "https://revdefine.io", connectTimeout: 60000));
+// //    if (!inProduction) {
+// //      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+// //          (client) {
+// ////        client.badCertificateCallback = (_, String host, int port){
+// ////          return true;
+// ////        };
+// //        client.findProxy = (url) {
+// //          return "PROXY 192.168.110.143:9999";
+// //        };
+// //      };
+// //    }
+// //    return dio;
+// //  }
 
 }

@@ -104,6 +104,7 @@
             "title": "导入钱包",
             "mnemonic": "助记词",
             "private_key": "私钥",
+            "keystore": "Keystore",
             "from_mnemonic": {
                 "mnemonic_hint_text": "输入助记词单词，并使用单个空格分隔",
                 "mnemonic_not_validate": "助记词无效",
@@ -115,6 +116,13 @@
             "from_private_key": {
                 "private_key_hint_text": "输入明文私钥",
                 "private_key_not_validate": "私钥无效",
+                "importing": "导入中···",
+                "success": "导入成功",
+                "btnTitle": "导入"
+            },
+            "from_keystore": {
+                "private_key_hint_text": "输入 Keystore",
+                "private_key_not_validate": "Keystore无效",
                 "importing": "导入中···",
                 "success": "导入成功",
                 "btnTitle": "导入"

@@ -10,9 +10,9 @@ class BalanceHomePage extends StatelessWidget {
   final _assetCard = AssetCard();
   Future _refresh() async {
 
-   Response response = await RNodeNetworking.revdefineDio.get("/api/validators");
-   print("response:${response.data}");
-//    return _assetCard.viewModel.getBalance(showLoading: false);
+//   Response response = await RNodeNetworking.revdefineDio.get("/api/validators");
+//   print("response:${response.data}");
+    return _assetCard.viewModel.getBalance(showLoading: false);
   }
 
   @override

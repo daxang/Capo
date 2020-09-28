@@ -21,6 +21,15 @@ dependencies:
     sdk: flutter
   cupertino_icons:
 
+    #github
+  capo_core_dart:
+     git: https://github.com/matteozero/Capo_Core_Dart.git
+
+  capo_token_core_plugin:
+    git: https://github.com/matteozero/capo_token_core_plugin.git
+
+
+
   #store
   shared_preferences: ^0.5.4+1
   #localization
@@ -54,9 +63,6 @@ dependencies:
   firebase_analytics: 5.0.11
   firebase_core:  0.4.4+3
 
-#github
-  capo_core_dart:
-    git: https://github.com/matteozero/Capo_Core_Dart.git
 
   rxbus:
     git: https://github.com/imphila/FlutterRxBus.git

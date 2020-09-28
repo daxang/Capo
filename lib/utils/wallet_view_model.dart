@@ -12,7 +12,7 @@ import 'package:rxbus/rxbus.dart';
 
 class WalletViewModel extends ChangeNotifier {
   Future<bool> ready;
-  WalletManager walletManager;
+  WalletManager walletManager = WalletManager.shared;
   String revBalance = "--";
   BasicWallet get currentWallet {
     return walletManager.currentWallet;
@@ -23,8 +23,7 @@ class WalletViewModel extends ChangeNotifier {
   }
 
   Future<void> _init() async {
-    this.walletManager =
-        await WalletManager.tryToLaodWalletManager() ?? WalletManager.init();
+    await WalletManager.shared.ready;
   }
 
   factory WalletViewModel() => _sharedInstance();
@@ -74,7 +73,7 @@ class WalletViewModel extends ChangeNotifier {
   switchWallet(BasicWallet wallet) async {
     await walletManager.switchWallet(wallet);
     revBalance = "--";
-    RxBus.post("SwitchWallet",tag: "WalletChanged");
+    RxBus.post("SwitchWallet", tag: "WalletChanged");
     notifyListeners();
     await getBalance();
     notifyListeners();
@@ -87,7 +86,7 @@ class WalletViewModel extends ChangeNotifier {
 
   deleteWallet(BuildContext context, BasicWallet wallet) async {
     await walletManager.deleteWallet(wallet);
-    RxBus.post("SwitchWallet",tag: "WalletChanged");
+    RxBus.post("SwitchWallet", tag: "WalletChanged");
     getBalance();
     notifyListeners();
     if (currentWallet == null && wallets.isEmpty) {

@@ -1,3 +1,4 @@
+import 'package:capo/modules/wallet/restore/from_keystore/view/from_keystore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class TabBarDemoState extends State<TabBarDemo>
 
   void initState() {
     super.initState();
-    _tabController = new TabController(vsync: this, length: 2);
+    _tabController = new TabController(vsync: this, length: 3);
     _tabController.addListener(() {
       FocusScope.of(context).requestFocus(FocusNode());
     });
@@ -34,7 +35,6 @@ class TabBarDemoState extends State<TabBarDemo>
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      
       appBar: new AppBar(
         title: new Text(tr("wallet.restore.title"),
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
@@ -42,11 +42,14 @@ class TabBarDemoState extends State<TabBarDemo>
           indicatorColor: Color.fromARGB(255, 51, 118, 184),
           indicatorSize: TabBarIndicatorSize.label,
           tabs: <Widget>[
-            new Tab(
+            Tab(
               text: tr("wallet.restore.mnemonic"),
             ),
-            new Tab(
+            Tab(
               text: tr("wallet.restore.private_key"),
+            ),
+            Tab(
+              text: tr("wallet.restore.keystore"),
             ),
           ],
           controller: _tabController,
@@ -54,7 +57,11 @@ class TabBarDemoState extends State<TabBarDemo>
       ),
       body: new TabBarView(
         controller: _tabController,
-        children: <Widget>[FromMnemonicView(), FromPrivateKeyView()],
+        children: <Widget>[
+          FromMnemonicView(),
+          FromPrivateKeyView(),
+          FromKeystoreView()
+        ],
       ),
     );
   }

@@ -1,8 +1,0 @@
-app_identifier("app.icapo.wallet") # The bundle identifier of your app
-apple_id("851045786@qq.com") # Your Apple email address
-
-itc_team_id("121159774") # App Store Connect Team ID
-team_id("R5ELA5SMHU") # Developer Portal Team ID
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile

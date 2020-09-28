@@ -72,70 +72,68 @@ class FromPrivateKeyViewModel with ChangeNotifier {
     if (!checkInput()) return;
     CapoDialogUtils.showProcessIndicator(
         context: context, tip: tr("wallet.restore.from_mnemonic.importing"));
-    final meta = WalletMeta(
-        name: walletNameString,
-        source: Source.importFromPrivateKey,
-        timestamp: DateTime.now().millisecondsSinceEpoch);
 
-    var viewModel = Provider.of<WalletViewModel>(context);
-    viewModel.walletManager
-        .importFromPrivateKey(
+    var importError;
+    await WalletManager.importFromPrivateKey(
             password: walletPasswordString,
             privateKey: privateKeyString,
-            metadata: meta)
-        .then((keystore) async {
-      Navigator.of(context).pop();
-
-      showToastWidget(Loading(
-        widget: Icon(
-          Icons.check,
-          size: 40,
-          color: HexColor.mainColor,
-        ),
-        text: tr("wallet.restore.from_private_key.success"),
-      ));
-
-      showToastWidget(
-        Container(
-          width: 130.0,
-          height: 130.0,
-          decoration: ShapeDecoration(
-            color: Theme.of(context).cardColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8.0),
-              ),
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                Icons.check,
-                size: 40,
-                color: HexColor.mainColor,
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
-                child: FittedBox(
-                  child: Text(
-                    tr("wallet.restore.from_private_key.success"),
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-      Navigator.pushNamedAndRemoveUntil(
-          context, "capo://icapo.app/tabbar", (Route<dynamic> route) => false);
-    }).catchError((error) {
+            name: walletNameString)
+        .catchError((error) {
+      importError = error;
       Navigator.of(context).pop();
       CapoDialogUtils.showErrorDialog(error: error, context: context);
     });
+
+    if (importError != null) {
+      return;
+    }
+    Navigator.of(context).pop();
+    showToastWidget(Loading(
+      widget: Icon(
+        Icons.check,
+        size: 40,
+        color: HexColor.mainColor,
+      ),
+      text: tr("wallet.restore.from_private_key.success"),
+    ));
+
+    showToastWidget(
+      Container(
+        width: 130.0,
+        height: 130.0,
+        decoration: ShapeDecoration(
+          color: Theme.of(context).cardColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.0),
+            ),
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.check,
+              size: 40,
+              color: HexColor.mainColor,
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
+              child: FittedBox(
+                child: Text(
+                  tr("wallet.restore.from_private_key.success"),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    Navigator.pushNamedAndRemoveUntil(
+        context, "capo://icapo.app/tabbar", (Route<dynamic> route) => false);
   }
 
   bool checkInput() {

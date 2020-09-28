@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:capo/modules/common/view/loading.dart';
+import 'package:capo/utils/capo_utils.dart';
 import 'package:capo/utils/dialog/capo_dialog_utils.dart';
 import 'package:capo/utils/wallet_view_model.dart';
 import 'package:capo_core_dart/capo_core_dart.dart';
@@ -12,31 +13,28 @@ import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
-class FromMnemonicViewModel with ChangeNotifier {
-  PublishSubject<String> mnemonicSubject = PublishSubject<String>();
+class FromPrivateKeyViewModel with ChangeNotifier {
+  PublishSubject<String> keystoreKeySubject = PublishSubject<String>();
   PublishSubject<String> walletNameSubject = PublishSubject<String>();
   PublishSubject<String> walletPasswordSubject = PublishSubject<String>();
-  PublishSubject<String> repeatPasswordSubject = PublishSubject<String>();
 
-  String mnemonicString;
+  String keystoreString;
   String walletNameString;
   String walletPasswordString;
-  String repeatPasswordString;
-
   bool isButtonAvailable = false;
   bool isPasswordAvailable = true;
   bool isRepeatPasswordMatch = true;
   bool _disposed = false;
-  FromMnemonicViewModel() {
+  FromPrivateKeyViewModel() {
     isButtonAvailableObservable
         .distinct()
         .doOnEach((value) => isButtonAvailable = value.value)
         .doOnEach((_) => notifyListeners())
         .listen((_) {});
 
-    mnemonicSubject
+    keystoreKeySubject
         .distinct()
-        .doOnEach((observable) => mnemonicString = observable.value)
+        .doOnEach((observable) => keystoreString = observable.value)
         .listen((_) {});
 
     walletNameSubject
@@ -48,33 +46,25 @@ class FromMnemonicViewModel with ChangeNotifier {
         .distinct()
         .doOnEach((observable) => walletPasswordString = observable.value)
         .listen((_) {});
-
-    repeatPasswordSubject
-        .distinct()
-        .doOnEach((observable) => repeatPasswordString = observable.value)
-        .listen((_) {});
   }
 
-  Stream<bool> get isButtonAvailableObservable => Rx.combineLatest4(
-          mnemonicSubject,
-          walletNameSubject,
-          walletPasswordSubject,
-          repeatPasswordSubject, (String mnemonic, String walletName,
-              String walletPassword, String repeatPassword) {
+  Stream<bool> get isButtonAvailableObservable => Rx.combineLatest3(
+          keystoreKeySubject, walletNameSubject, walletPasswordSubject,
+          (String mnemonic, String walletName, String walletPassword) {
         return mnemonic.isNotEmpty &&
             walletName.isNotEmpty &&
-            walletPassword.isNotEmpty &&
-            repeatPassword.isNotEmpty;
+            walletPassword.isNotEmpty;
       });
 
   Future btnTapped(context) async {
     if (!checkInput()) return;
     CapoDialogUtils.showProcessIndicator(
-        context: context, tip: tr("wallet.restore.from_mnemonic.importing"));
+        context: context, tip: tr("wallet.restore.from_keystore.importing"));
+
     var importError;
-    await WalletManager.importFromMnemonic(
+    await WalletManager.importFromKeystore(
             password: walletPasswordString,
-            mnemonic: mnemonicString,
+            keystoreString: keystoreString,
             name: walletNameString)
         .catchError((error) {
       importError = error;
@@ -86,16 +76,49 @@ class FromMnemonicViewModel with ChangeNotifier {
       return;
     }
     Navigator.of(context).pop();
-    showToastWidget(
-      Loading(
-        widget: Icon(
-          Icons.check,
-          size: 50,
-        ),
-        text: tr("wallet.restore.from_mnemonic.success"),
+    showToastWidget(Loading(
+      widget: Icon(
+        Icons.check,
+        size: 40,
+        color: HexColor.mainColor,
       ),
-      context: context,
-      dismissOtherToast: true,
+      text: tr("wallet.restore.from_keystore.success"),
+    ));
+
+    showToastWidget(
+      Container(
+        width: 130.0,
+        height: 130.0,
+        decoration: ShapeDecoration(
+          color: Theme.of(context).cardColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.0),
+            ),
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.check,
+              size: 40,
+              color: HexColor.mainColor,
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
+              child: FittedBox(
+                child: Text(
+                  tr("wallet.restore.from_keystore.success"),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
     Navigator.pushNamedAndRemoveUntil(
         context, "capo://icapo.app/tabbar", (Route<dynamic> route) => false);
@@ -108,14 +131,6 @@ class FromMnemonicViewModel with ChangeNotifier {
       return false;
     } else {
       isPasswordAvailable = true;
-    }
-
-    if (walletPasswordString != repeatPasswordString) {
-      isRepeatPasswordMatch = false;
-      notifyListeners();
-      return false;
-    } else {
-      isRepeatPasswordMatch = true;
     }
 
     notifyListeners();
@@ -131,10 +146,9 @@ class FromMnemonicViewModel with ChangeNotifier {
 
   void dispose() {
     _disposed = true;
-    mnemonicSubject.close();
+    keystoreKeySubject.close();
     walletNameSubject.close();
     walletPasswordSubject.close();
-    repeatPasswordSubject.close();
     super.dispose();
   }
 }

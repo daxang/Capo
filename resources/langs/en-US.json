@@ -107,6 +107,7 @@
             "title": "Restore Wallet",
             "mnemonic": "Mnemonic",
             "private_key": "Private Key",
+            "keystore": "Keystore",
             "from_mnemonic": {
                 "mnemonic_hint_text": "Enter mnemonic phrases separated by a single space",
                 "mnemonic_not_validate": "Invalid Mnemonic",
@@ -117,6 +118,13 @@
             "from_private_key": {
                 "private_key_hint_text": "Enter Private Key",
                 "private_key_not_validate": "Invalid Private Key",
+                "importing": "Restoring···",
+                "success": "Restore successfully",
+                "btnTitle": "Restore"
+            },
+            "from_keystore": {
+                "keystore_hint_text": "Enter Keystore",
+                "keystore_not_validate": "Invalid Keystore",
                 "importing": "Restoring···",
                 "success": "Restore successfully",
                 "btnTitle": "Restore"

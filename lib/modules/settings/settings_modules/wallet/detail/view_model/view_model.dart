@@ -53,7 +53,8 @@ class WalletDetailViewModel extends ChangeNotifier {
               CapoDialogUtils.showProcessIndicator(
                   context: context,
                   tip: tr("settings.wallets.detail.exporting"));
-              wallet.exportPrivateKey(password).then((String privateKey) {
+
+              wallet.exportPrivateKey(password: password).then((String privateKey) {
                 Navigator.pop(context);
                 Navigator.pushNamed(context,
                     "capo://icapo.app/settings/wallets/detail/export_private_key?privateKey=$privateKey");

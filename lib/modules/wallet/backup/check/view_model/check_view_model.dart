@@ -63,37 +63,28 @@ class CheckViewModel extends ChangeNotifier {
   btnTapped(context) async {
     if (!checkMnemonic()) return;
     showProcessIndicator(context);
-    final meta = WalletMeta(
-        name: walletName,
-        source: Source.create,
-        timestamp: DateTime.now().millisecondsSinceEpoch);
 
-    var viewModel = Provider.of<WalletViewModel>(context);
-    viewModel.walletManager
-        .importFromMnemonic(
-      password: password,
-      mnemonic: mnemonic,
-      metadata: meta,
-    )
-        .then((keystore) {
-      Navigator.of(context).pop();
-      showToastWidget(
-        Loading(
-          widget: Icon(
-            Icons.check,
-            size: 50,
-          ),
-          text: tr("wallet.backup.check.success"),
-        ),
-        context: context,
-        dismissOtherToast: true,
-      );
-      Navigator.pushNamedAndRemoveUntil(
-          context, "capo://icapo.app/tabbar", (Route<dynamic> route) => false);
-    }).catchError((error) {
+    await WalletManager.importFromMnemonic(
+            password: password, mnemonic: mnemonic, name: walletName)
+        .catchError((error) {
       Navigator.of(context).pop();
       showErrorToast(error, context);
     });
+
+    Navigator.of(context).pop();
+    showToastWidget(
+      Loading(
+        widget: Icon(
+          Icons.check,
+          size: 50,
+        ),
+        text: tr("wallet.backup.check.success"),
+      ),
+      context: context,
+      dismissOtherToast: true,
+    );
+    Navigator.pushNamedAndRemoveUntil(
+        context, "capo://icapo.app/tabbar", (Route<dynamic> route) => false);
   }
 
   bool checkMnemonic() {
@@ -123,8 +114,8 @@ class CheckViewModel extends ChangeNotifier {
         builder: (_) {
           final indicator = CircularProgressIndicator(
             strokeWidth: 2.4,
-            valueColor: AlwaysStoppedAnimation<Color>(
-                Theme.of(context).focusColor),
+            valueColor:
+                AlwaysStoppedAnimation<Color>(Theme.of(context).focusColor),
           );
           return Loading(
             widget: indicator,

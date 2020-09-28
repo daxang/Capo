@@ -5,6 +5,7 @@ import 'package:capo_core_dart/capo_core_dart.dart';
 import 'package:easy_localization/public.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../capo_utils.dart';
@@ -18,7 +19,7 @@ class CapoDialogUtils {
       VoidCallback okTapped}) {
     var dialog = CupertinoAlertDialog(
       content: Text(
-        message,
+        message != null ? message : "",
         style: TextStyle(fontSize: 20),
       ),
       actions: <Widget>[
@@ -52,17 +53,18 @@ class CapoDialogUtils {
         builder: (_) {
           return PasswordDialog(
             wallet: wallet,
-            okClick: (password) {
+            okClick: (password) async {
               showProcessIndicator(context: buildContext, tip: tip);
-              wallet.exportPrivateKey(password).then((String privateKey) {
-                Navigator.pop(buildContext);
-                if (decryptSuccess != null) {
-                  decryptSuccess(privateKey);
-                }
-              }).catchError((error) {
+              final String privateKey = await wallet
+                  .exportPrivateKey(password: password)
+                  .catchError((error) {
                 Navigator.pop(buildContext);
                 showErrorDialog(error: error, context: buildContext);
               });
+              Navigator.pop(buildContext);
+              if (decryptSuccess != null) {
+                decryptSuccess(privateKey);
+              }
             },
           );
         });
@@ -81,6 +83,14 @@ class CapoDialogUtils {
       } else if (type == AppErrorType.privateKeyInvalid) {
         errorText =
             tr("wallet.restore.from_private_key.private_key_not_validate");
+      } else {
+        errorText = tr("appError.genericError");
+      }
+    } else if (error is PlatformException) {
+      if (error.code == "10005") {
+        errorText = tr("settings.wallets.detail.password_invalid");
+      } else if (error.code == "10002") {
+        errorText = tr("wallet.restore.from_mnemonic.mnemonic_not_validate");
       } else {
         errorText = tr("appError.genericError");
       }
