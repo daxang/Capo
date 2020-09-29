@@ -13,6 +13,7 @@ import 'modules/settings/settings_modules/about/about_page.dart';
 import 'modules/settings/settings_modules/node_settings/node_settings_page.dart';
 import 'modules/settings/settings_modules/node_settings/view/readonly/readonly_page.dart';
 import 'modules/settings/settings_modules/node_settings/view/validator/validator_page.dart';
+import 'modules/settings/settings_modules/wallet/detail/export/export_keystore_page.dart';
 import 'modules/settings/settings_modules/wallet/detail/export/export_private_key_page.dart';
 import 'modules/settings/settings_modules/wallet/detail/export/export_mnemonic_page.dart';
 import 'modules/settings/settings_modules/wallet/detail/wallet_detail_page.dart';
@@ -127,6 +128,11 @@ RouteResult getRouteResult({String pageUrl}) {
       return RouteResult(
         widget: TabBarDemo(),
       );
+    case "capo://icapo.app/settings/wallets/detail/export_keystore":
+      return RouteResult(
+        widget: ExportKeystorePage(),
+      );
+
     default:
       return RouteResult();
   }

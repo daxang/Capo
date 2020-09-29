@@ -35,11 +35,11 @@ class WalletDetailViewModel extends ChangeNotifier {
 
   tappedSwitchWallet() async {
     if (walletViewModel != null) {
-      CapoDialogUtils.showProcessIndicator(context: context,tip: tr("settings.wallets.detail.switching"));
+      CapoDialogUtils.showProcessIndicator(
+          context: context, tip: tr("settings.wallets.detail.switching"));
       await walletViewModel.switchWallet(wallet);
       Navigator.pop(context);
       Navigator.pop(context);
-
     }
   }
 
@@ -54,7 +54,9 @@ class WalletDetailViewModel extends ChangeNotifier {
                   context: context,
                   tip: tr("settings.wallets.detail.exporting"));
 
-              wallet.exportPrivateKey(password: password).then((String privateKey) {
+              wallet
+                  .exportPrivateKey(password: password)
+                  .then((String privateKey) {
                 Navigator.pop(context);
                 Navigator.pushNamed(context,
                     "capo://icapo.app/settings/wallets/detail/export_private_key?privateKey=$privateKey");
@@ -87,6 +89,31 @@ class WalletDetailViewModel extends ChangeNotifier {
               });
             },
           );
+        });
+  }
+
+  tappedExportKeystore(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return PasswordDialog(
+              wallet: wallet,
+              okClick: (password) async {
+                CapoDialogUtils.showProcessIndicator(
+                    context: context,
+                    tip: tr("settings.wallets.detail.exporting"));
+                bool isVerisy = await wallet.verifyPassword(password);
+                if (isVerisy) {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context,
+                      "capo://icapo.app/settings/wallets/detail/export_keystore?keystore=${wallet.keystore.export()}");
+                } else {
+                  Navigator.pop(context);
+                  final error = AppError(type: AppErrorType.passwordIncorrect);
+                  CapoDialogUtils.showErrorDialog(
+                      error: error, context: context);
+                }
+              });
         });
   }
 

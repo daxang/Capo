@@ -168,6 +168,7 @@
                 "change_wallet_name": "Change Wallet Name",
                 "export_private_key": "Export Private Key",
                 "export_mnemonic_phrase": "Export Mnemonic Phrase",
+                "export_keystore": "Export Keystore",
                 "delete_wallet": "Delete Wallet",
                 "switch_wallet": "Switch Wallet",
                 "switching": "Switch···",
@@ -203,6 +204,16 @@
                     "first_tip": "1. Never share your mnemonic with anyone",
                     "second_tip": "2. Never transfer mnemonic over the network",
                     "btn_title": "Copy Mnemonic Phrase",
+                    "copied": "Copied"
+
+                },
+                "export_keystore_page": {
+                    "title": "Export Keystore",
+                    "export_tip": "Export Tips",
+                    "desc": "The keystore contains encrypted private key",
+                    "first_tip": "1. Never share your keystore with anyone",
+                    "second_tip": "2. Never transfer keystore over the network",
+                    "btn_title": "Copy ",
                     "copied": "Copied"
 
                 }
@@ -263,7 +274,7 @@
             "open": "Open",
             "terms_and_privacy":{
                 "title": "Terms & Privacy",
-                "terms": "* Capo is a mobile wallet developed for RChain. Your assets are securely stored on the RChain network, and your private key is your only asset certificate.\n * Capo uses the Scrypt algorithm encrypts your private key and mnemonic,  your private key and mnemonic are stored on the device in the form of a keystore file.\n * It's your responsibility to backup your private key and mnemonic and keep them private, do not forget the password for your wallet. Never show your private key and mnemonic to anyone. If it's lost, forgotten or stolen, your funds can be used by the person who has your private key or mnemonic.\n * Do not jailbreak or root your phone, don’t install apps from unknown (untrusted) sources. \n* Capo is completely open source, following the [MIT](https://github.com/matteozero/Capo/blob/master/LICENSE) license, you  can view the source code through [GitHub](https://github.com/matteozero/Capo).\n* If you like Capo, you can tap here to [donate](capo://icapo.app/balance/send) Capo."
+                "terms": "* Capo is a mobile wallet developed for RChain. Your assets are securely stored on the RChain network, and your private key is your only asset certificate.\n * Capo uses a password encryption algorithm to encrypt your private key and mnemonic,  your private key and mnemonic are stored on the device in the form of a keystore file.\n * It's your responsibility to backup your private key and mnemonic and keep them private, do not forget the password for your wallet. Never show your private key and mnemonic to anyone. If it's lost, forgotten or stolen, your funds can be used by the person who has your private key or mnemonic.\n * Do not jailbreak or root your phone, don’t install apps from unknown (untrusted) sources. \n* Capo is open source, you can view the source code through [GitHub](https://github.com/matteozero/Capo).\n* If you like Capo, you can tap here to [donate](capo://icapo.app/balance/send) Capo."
             }
         }
     },

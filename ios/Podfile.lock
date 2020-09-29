@@ -111,7 +111,7 @@ PODS:
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
-  - TokenCoreCapo (1.0.5):
+  - TokenCoreCapo (1.0.6):
     - BigInt
     - CoreBitcoin
     - CryptoSwift
@@ -218,7 +218,7 @@ CHECKOUT OPTIONS:
     :commit: 8386ab63c0c2749b24310d7908bee5224b6cc77c
     :git: https://github.com/matteozero/secp256k1.git
   TokenCoreCapo:
-    :commit: 1455ad892f500753f6ba18e312c6145de1866252
+    :commit: b5a31941f343633f15ea531f315aff1935100790
     :git: https://github.com/matteozero/TokenCoreCapo.git
 
 SPEC CHECKSUMS:
@@ -252,7 +252,7 @@ SPEC CHECKSUMS:
   secp256k1: 3b26f535f812c47ab0e70813a02474d93dc1ded4
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
-  TokenCoreCapo: 4792888b5f2a0b67e2175a2b5ef3c23afe6727cf
+  TokenCoreCapo: 888f38b1f59b2520156762d5b20f63d04bd8de71
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
 
 PODFILE CHECKSUM: a29dd0648b1369954f7ab81b8a6f055434ea760a

@@ -98,6 +98,34 @@ class WalletDetailPage extends StatelessWidget {
                             ],
                           )
                         : Container(),
+                    Column(
+                      children: <Widget>[
+                        Divider(
+                          indent: 16,
+                          endIndent: 0,
+                          height: 1,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(8.0),
+                                bottomLeft: Radius.circular(8.0)),
+                          ),
+                          child: ListTile(
+                            title: Text(
+                                tr("settings.wallets.detail.export_keystore")),
+                            onTap: () {
+                              viewModel.tappedExportKeystore(context);
+                            },
+                            trailing: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.0,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                     viewModel.showSwitchWallet
                         ? Column(
                             mainAxisSize: MainAxisSize.min,

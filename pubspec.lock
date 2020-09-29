@@ -90,7 +90,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "0dc2c63386da60302e76fa4652e36e1159b7a893"
+      resolved-ref: fdfba53d8c6d3567d501a0d6b8ea9f14bc3403c3
       url: "https://github.com/matteozero/Capo_Core_Dart.git"
     source: git
     version: "0.0.1"
@@ -99,7 +99,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: a38304e7e6d40828d4fd89d860b26e495d3eff9e
+      resolved-ref: "207092c454244ca535b3b43783c3574463da4722"
       url: "https://github.com/matteozero/capo_token_core_plugin.git"
     source: git
     version: "0.0.1"

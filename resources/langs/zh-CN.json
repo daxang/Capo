@@ -167,6 +167,7 @@
                 "change_wallet_name": "更换钱包名",
                 "export_private_key": "导出私钥",
                 "export_mnemonic_phrase": "导出助记词",
+                "export_keystore": "导出 Keystore",
                 "delete_wallet": "删除钱包",
                 "switch_wallet": "切换钱包",
                 "switching": "切换中···",
@@ -201,6 +202,15 @@
                     "first_tip": "1. 不要向任何人分享你的助记词",
                     "second_tip": "2. 不要通过网络传输助记词",
                     "btn_title": "复制助记词",
+                    "copied": "已复制"
+
+                }, "export_keystore_page": {
+                    "title": "导出助记词",
+                    "export_tip": "导出提示",
+                    "desc": "Keystore 包含了加密后的私钥",
+                    "first_tip": "1. 不要向任何人分享你的keystore",
+                    "second_tip": "2. 不要通过网络传输keystore",
+                    "btn_title": "复制 Keystore",
                     "copied": "已复制"
 
                 }
@@ -263,7 +273,7 @@
             "open": "打开",
             "terms_and_privacy":{
                 "title": "条款和隐私",
-                "terms": "* Capo 是一款为RChain开发的移动端钱包。您的资产安全的储存在 RChain 网络上，私钥是您的唯一资产凭证。\n* Capo 使用 Scrypt 算法加密您的私钥和助记词，您的私钥和助记词以 keystore 文件的形式保存在设备上。\n* 您的职责是备份私钥和助记词并保证其安全,记住您的钱包密码。绝对不要向任何人展示私钥和助记词。如果丢失，遗忘或被盗，您的资金将会被拥有私钥，助记词的人使用。\n* 不要对您的手机进行越狱或 root ，不要安装来源不明(不可靠)的应用。\n* Capo 是一款完全开源的应用，遵守[MIT](https://github.com/matteozero/Capo/blob/master/LICENSE)协议,您可以通过[GitHub](https://github.com/matteozero/Capo)查看源代码。\n* 如您喜欢 Capo ,您可以点此 [捐赠](capo://icapo.app/balance/send) Capo 。"
+                "terms": "* Capo 是一款为RChain开发的移动端钱包。您的资产安全的储存在 RChain 网络上，私钥是您的唯一资产凭证。\n* Capo 使用密码加密算法加密您的私钥和助记词，您的私钥和助记词以 Keystore 文件的形式保存在设备上。\n* 您的职责是备份私钥和助记词并保证其安全,记住您的钱包密码。绝对不要向任何人展示私钥和助记词。如果丢失，遗忘或被盗，您的资金将会被拥有私钥，助记词的人使用。\n* 不要对您的手机进行越狱或 root ，不要安装来源不明(不可靠)的应用。\n* Capo 是一款开源的应用, 您可以通过[GitHub](https://github.com/matteozero/Capo)查看源代码。\n* 如您喜欢 Capo ,您可以点此 [捐赠](capo://icapo.app/balance/send) Capo 。"
             }
         }
     },
