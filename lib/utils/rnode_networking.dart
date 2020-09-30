@@ -13,7 +13,17 @@ class RNodeNetworking {
     String host;
     int port;
     if (model.autoSelected) {
-      Response response = await rNodeStatusDio.get("/api/validators");
+      Response response =
+          await rNodeStatusDio.get("/api/validators").catchError((_) {
+        if (model.selectedNode.host != null) {
+          RNodeDeployGRPCService.shared.setDeployChannelHost(
+              host: model.selectedNode.host, port: model.selectedNode.grpcPort);
+        } else {
+          RNodeDeployGRPCService.shared.setDeployChannelHost(
+              host: model.validators.first.host,
+              port: model.validators.first.grpcPort);
+        }
+      });
       rNodeStatusDio.close();
       CoopNodes bestValidatorModel = CoopNodes.fromJson(response.data);
 

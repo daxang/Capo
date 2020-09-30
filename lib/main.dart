@@ -9,8 +9,8 @@ import 'app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
-  await RNodeNetworking.setDeployGRPCNetwork();
-  await RNodeNetworking.setExploratoryDeployGRPCNetwork();
+  // RNodeNetworking.setDeployGRPCNetwork();
+  // RNodeNetworking.setExploratoryDeployGRPCNetwork();
 
   runApp(EasyLocalization(child: CapoApp()));
 }
