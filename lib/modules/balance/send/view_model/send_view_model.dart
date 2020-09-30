@@ -1,10 +1,8 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:capo/utils/capo_utils.dart';
 import 'package:capo/utils/dialog/capo_dialog_utils.dart';
-import 'package:capo/utils/rnode_networking.dart';
 import 'package:capo/utils/transfer_funds_rho.dart';
 import 'package:capo/utils/wallet_view_model.dart';
-import 'package:capo_core_dart/capo_core_dart.dart';
 import 'package:decimal/decimal.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
+import 'package:rnode_grpc_dart/rnode_grpc_dart.dart';
 
 class SendViewModel extends ChangeNotifier {
   String selfRevAddress = "";
@@ -114,20 +113,11 @@ class SendViewModel extends ChangeNotifier {
         revAddrTo: transferAddress,
         amount: amount);
 
-    var gRPC = await RNodeNetworking.gRPC.catchError((error) {
-      Navigator.pop(buildContext);
-      CapoDialogUtils.showCupertinoDialog(
-          buildContext: buildContext,
-          message: tr("sendPage.deployFailed") + ": " + error.toString());
-    });
     Navigator.pop(buildContext);
     CapoDialogUtils.showProcessIndicator(
         context: buildContext, tip: tr("sendPage.sending"));
-    if (!inProduction) {
-      print("grpc host:${gRPC.host}");
-      print("grpc port:${gRPC.port}");
-    }
-    gRPC
+
+    RNodeDeployGRPCService.shared
         .sendDeploy(deployCode: term, privateKey: privateKey)
         .then((Map map) async {
       Navigator.pop(buildContext);

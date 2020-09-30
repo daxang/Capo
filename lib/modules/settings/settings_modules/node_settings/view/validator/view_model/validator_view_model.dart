@@ -13,7 +13,6 @@ class ValidatorViewModel with ChangeNotifier {
   CoopNodes nodeModel;
   BuildContext _buildContext;
   loadJson(context) async {
-    RNodeNetworking.gRPC;
 //    String jsonString;
 //    jsonString = StorageManager.sharedPreferences
 //        .getString(kCapoUserValidatorNodeSettings);
@@ -86,79 +85,55 @@ class ValidatorViewModel with ChangeNotifier {
     ]);
   }
 
-  addCustomNode(String nodeUrl) async {
-    if (nodeUrl == null || nodeUrl.length == 0) {
-      return;
-    }
-
-    var _url = nodeUrl;
-    if (_url.startsWith(RegExp(r'https?:'))) {
-      CapoDialogUtils.showCupertinoDialog(
-          buildContext: _buildContext,
-          message: tr(
-              "settings.note_settings.validator_page.node_address_not_validate"));
-      return;
-    }
-    var s = _url.split(':');
-    try {
-      final int _ = int.parse(s.last);
-    } catch (e) {
-      CapoDialogUtils.showCupertinoDialog(
-          buildContext: _buildContext,
-          message: tr("settings.note_settings.validator_page.port_error"));
-      return;
-    }
-
-//    for (List<Section> sections in tableViewSections.sections) {
-//      for (Section section in sections) {
-//        if (section.url == nodeUrl) {
-//          CapoDialogUtils.showCupertinoDialog(
-//              buildContext: _buildContext,
-//              message: tr(
-//                  "settings.note_settings.validator_page.node_already_exists"));
-//          return;
-//        }
-//      }
-//    }
-    CapoDialogUtils.showProcessIndicator(
-        context: _buildContext,
-        tip: tr("settings.note_settings.validator_page.testing"));
-    bool passed = await testNode(nodeUrl);
-    Navigator.pop(_buildContext);
-    if (!passed) {
-      CapoDialogUtils.showCupertinoDialog(
-          buildContext: _buildContext,
-          message: tr(
-              "settings.note_settings.validator_page.unable_to_connect_to_this_node"));
-      return;
-    }
-
-//    tableViewSections.sections.last.add(Section(url: nodeUrl));
-//    String jsonString = json.encode(tableViewSections.toJson());
-//    await saveNodeSettings2Storage(jsonString);
-//    notifyListeners();
-  }
-
-  Future<bool> testNode(String nodeUrl) async {
-    var s = nodeUrl.split(':');
-
-    final String host = s.first;
-    final int port = int.parse(s.last);
-
-    try {
-      RNodeGRPC gRPC = RNodeGRPC(host: host, port: port);
-      final blocksQuery = BlocksQuery();
-      blocksQuery.depth = 1;
-      final blocks = await gRPC.deployService.getBlocks(blocksQuery).first;
-      final blockNumber = blocks.blockInfo.blockNumber;
-      if (blockNumber == null || blockNumber == 0) {
-        return false;
-      }
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }
+//   addCustomNode(String nodeUrl) async {
+//     if (nodeUrl == null || nodeUrl.length == 0) {
+//       return;
+//     }
+//
+//     var _url = nodeUrl;
+//     if (_url.startsWith(RegExp(r'https?:'))) {
+//       CapoDialogUtils.showCupertinoDialog(
+//           buildContext: _buildContext,
+//           message: tr(
+//               "settings.note_settings.validator_page.node_address_not_validate"));
+//       return;
+//     }
+//     var s = _url.split(':');
+//     try {
+//       final int _ = int.parse(s.last);
+//     } catch (e) {
+//       CapoDialogUtils.showCupertinoDialog(
+//           buildContext: _buildContext,
+//           message: tr("settings.note_settings.validator_page.port_error"));
+//       return;
+//     }
+//
+// //    for (List<Section> sections in tableViewSections.sections) {
+// //      for (Section section in sections) {
+// //        if (section.url == nodeUrl) {
+// //          CapoDialogUtils.showCupertinoDialog(
+// //              buildContext: _buildContext,
+// //              message: tr(
+// //                  "settings.note_settings.validator_page.node_already_exists"));
+// //          return;
+// //        }
+// //      }
+// //    }
+//     CapoDialogUtils.showProcessIndicator(
+//         context: _buildContext,
+//         tip: tr("settings.note_settings.validator_page.testing"));
+//     bool passed = await testNode(nodeUrl);
+//     Navigator.pop(_buildContext);
+//     if (!passed) {
+//       CapoDialogUtils.showCupertinoDialog(
+//           buildContext: _buildContext,
+//           message: tr(
+//               "settings.note_settings.validator_page.unable_to_connect_to_this_node"));
+//       return;
+//     }
+//
+//
+//   }
 
   deleteNode(int section, int row) async {
 //    String nodeUrl = tableViewSections.sections[section][row].url;

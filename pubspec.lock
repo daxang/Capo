@@ -90,7 +90,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fdfba53d8c6d3567d501a0d6b8ea9f14bc3403c3
+      resolved-ref: "11ca42186c78c6ec4fb9866a9b5df8bfc06949d0"
       url: "https://github.com/matteozero/Capo_Core_Dart.git"
     source: git
     version: "0.0.1"
@@ -558,7 +558,7 @@ packages:
       name: plugin_platform_interface
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   pointycastle:
     dependency: transitive
     description:
@@ -636,6 +636,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.8"
+  rnode_grpc_dart:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "6b75b9c246a8cffd6ff181b24df19ad3c160a555"
+      url: "https://github.com/matteozero/rnode_grpc_dart.git"
+    source: git
+    version: "0.0.1"
   rxbus:
     dependency: "direct main"
     description:

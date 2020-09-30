@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/public.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:rnode_grpc_dart/rnode_grpc_dart.dart';
 import 'package:rxbus/rxbus.dart';
 
 class WalletViewModel extends ChangeNotifier {
@@ -45,26 +46,24 @@ class WalletViewModel extends ChangeNotifier {
     if (currentWallet == null) {
       return;
     }
-    String term = checkBalanceRho(currentWallet.address);
-    try {
-      var rNodeDio = await RNodeNetworking.rNodeDio;
-      Response response =
-          await rNodeDio.post("/api/explore-deploy", data: term);
+    RNodeExploratoryDeployGRPCService.shared.setDeployChannelHost(
+        host: "observer-asia.services.mainnet.rchain.coop");
 
-      BalanceModel model = BalanceModel.fromJson(response.data);
-      final error = model.expr.first.exprString.data;
-      if (error == null) {
-        final balanceInt = model.expr.first.exprInt.data != null &&
-                model.expr.first.exprInt.data > 0
-            ? model.expr.first.exprInt.data / 10e7
-            : 0;
-        final String balance = balanceInt.toString();
-        revBalance = balance;
-        notifyListeners();
-      } else {
-        showToast(error);
-      }
-    } on DioError catch (_) {
+    String term = checkBalanceRho(currentWallet.address);
+
+    final ExploratoryDeployResponse result =
+        await RNodeExploratoryDeployGRPCService.shared
+            .sendExploratoryDeploy(deployCode: term)
+            .catchError((error) {
+      showToast(error.toString());
+    });
+
+    if (result != null &&
+        result.result.postBlockData.first.exprs.first.gInt != null) {
+      revBalance =
+          result.result.postBlockData.first.exprs.first.gInt.toString();
+      notifyListeners();
+    } else {
       showToast(tr(
           "settings.note_settings.readonly_page.unable_to_connect_to_this_node"));
     }

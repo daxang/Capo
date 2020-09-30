@@ -239,52 +239,52 @@ class NodeSettingValidatorPage extends StatelessWidget {
                   )
                 ],
               ),
-              Positioned(
-                  bottom: 25,
-                  left: 16,
-                  right: 16,
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: CupertinoButton(
-                              padding: EdgeInsets.all(16),
-                              pressedOpacity: 0.8,
-                              color: Color.fromARGB(255, 51, 118, 184),
-                              child: Text(
-                                tr("settings.note_settings.validator_page.understood"),
-                                style: Theme.of(context).textTheme.button,
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                                showTextFieldDialog(viewModel, context);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )),
+              // Positioned(
+              //     bottom: 25,
+              //     left: 16,
+              //     right: 16,
+              //     child: Column(
+              //       children: <Widget>[
+              //         Row(
+              //           children: <Widget>[
+              //             Expanded(
+              //               child: CupertinoButton(
+              //                 padding: EdgeInsets.all(16),
+              //                 pressedOpacity: 0.8,
+              //                 color: Color.fromARGB(255, 51, 118, 184),
+              //                 child: Text(
+              //                   tr("settings.note_settings.validator_page.understood"),
+              //                   style: Theme.of(context).textTheme.button,
+              //                 ),
+              //                 onPressed: () {
+              //                   Navigator.pop(context);
+              //                   showTextFieldDialog(viewModel, context);
+              //                 },
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ],
+              //     )),
             ]),
           );
         });
   }
 
-  showTextFieldDialog(ValidatorViewModel viewModel, BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return CapoTextFieldDialog(
-            topTitle:
-                tr("settings.note_settings.validator_page.text_dialog.title"),
-            labelText: tr(
-                "settings.note_settings.validator_page.text_dialog.label_text"),
-            hint: "icapo.app:40401",
-            inputCallback: (text) {
-              viewModel.addCustomNode(text);
-            },
-          );
-        });
-  }
+  // showTextFieldDialog(ValidatorViewModel viewModel, BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (_) {
+  //         return CapoTextFieldDialog(
+  //           topTitle:
+  //               tr("settings.note_settings.validator_page.text_dialog.title"),
+  //           labelText: tr(
+  //               "settings.note_settings.validator_page.text_dialog.label_text"),
+  //           hint: "icapo.app:40401",
+  //           inputCallback: (text) {
+  //             viewModel.addCustomNode(text);
+  //           },
+  //         );
+  //       });
+  // }
 }

@@ -1,14 +1,14 @@
 {
   "sections": [
     [{
-      "url": "https://observer-asia.services.mainnet.rchain.coop"
+      "url": "observer-asia.services.mainnet.rchain.coop"
     },
       {
-        "url": "https://observer-us.services.mainnet.rchain.coop"
+        "url": "observer-us.services.mainnet.rchain.coop"
       }, {
-      "url": "https://observer-eu.services.mainnet.rchain.coop"
+      "url": "observer-eu.services.mainnet.rchain.coop"
     },{
-      "url": "https://observer.services.mainnet.rchain.coop"
+      "url": "observer.services.mainnet.rchain.coop"
     }
     ],
     []
