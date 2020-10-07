@@ -11,6 +11,7 @@
 
     },
     "list_info": {
+        "fetch_data_error": "未获取到数据请稍后重试",
         "no_more": "无更多数据",
         "empty_list": "暂无数据"
 

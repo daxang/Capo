@@ -10,6 +10,7 @@
 
     },
     "list_info": {
+        "fetch_data_error": "No data yet, please try again later",
         "no_more": "No more data",
         "empty_list": "No data"
     },

@@ -674,9 +674,11 @@ packages:
   rnode_grpc_dart:
     dependency: "direct main"
     description:
-      path: "/Users/matteo/Desktop/Capo/rnode_grpc_dart"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "27014a52ed6014489958cf9d8e74e8ec95ec5d64"
+      url: "https://github.com/matteozero/rnode_grpc_dart.git"
+    source: git
     version: "0.0.1"
   rxbus:
     dependency: "direct main"

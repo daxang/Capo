@@ -29,7 +29,7 @@ dependencies:
     git: https://github.com/matteozero/capo_token_core_plugin.git
 
   rnode_grpc_dart:
-    path: /Users/matteo/Desktop/Capo/rnode_grpc_dart
+    git: https://github.com/matteozero/rnode_grpc_dart.git
 
 
   rxbus:

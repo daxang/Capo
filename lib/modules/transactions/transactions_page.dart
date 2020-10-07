@@ -167,7 +167,7 @@ class _TransactionsPageState extends State<TransactionsPage>
 
         break;
       case IndicatorStatus.fullScreenError:
-        widget = Text(tr("appError.genericError"));
+        widget = Text(tr("list_info.fetch_data_error"));
         widget = _setbackground(true, widget, bodyHeight);
         widget = GestureDetector(
           onTap: () {
@@ -175,34 +175,12 @@ class _TransactionsPageState extends State<TransactionsPage>
           },
           child: widget,
         );
-        if (isSliver) {
-          widget = SliverFillRemaining(
-            child: widget,
-          );
-        } else {
-          widget = CustomScrollView(
-            slivers: <Widget>[
-              SliverFillRemaining(
-                child: widget,
-              )
-            ],
-          );
-        }
         break;
       case IndicatorStatus.noMoreLoad:
         widget = Text(tr("list_info.no_more"));
         widget = _setbackground(false, widget, bodyHeight);
         break;
       case IndicatorStatus.empty:
-        // widget = EmptyWidget(
-        //   tr("list_info.empty_list"),
-        // );
-        // widget = _setbackground(true, widget, double.infinity);
-        // if (isSliver) {
-        //   widget = SliverToBoxAdapter(
-        //     child: widget,
-        //   );
-        // }
         widget = Text(tr("list_info.empty_list"));
         widget = _setbackground(false, widget, bodyHeight);
         break;
