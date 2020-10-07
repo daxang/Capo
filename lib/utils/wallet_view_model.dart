@@ -1,11 +1,6 @@
-import 'dart:convert';
-
-import 'package:capo/modules/balance/model/balanceModel.dart';
 import 'package:capo/utils/check_balance_rho.dart';
 import 'package:capo/utils/rnode_networking.dart';
 import 'package:capo_core_dart/capo_core_dart.dart';
-import 'package:dio/dio.dart';
-import 'package:easy_localization/public.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:rnode_grpc_dart/rnode_grpc_dart.dart';
@@ -46,26 +41,30 @@ class WalletViewModel extends ChangeNotifier {
     if (currentWallet == null) {
       return;
     }
-    RNodeExploratoryDeployGRPCService.shared.setDeployChannelHost(
-        host: "observer-asia.services.mainnet.rchain.coop");
 
+    await RNodeNetworking.setExploratoryDeployGRPCNetwork();
     String term = checkBalanceRho(currentWallet.address);
-
+    Error exploratoryDeployError;
     final ExploratoryDeployResponse result =
         await RNodeExploratoryDeployGRPCService.shared
             .sendExploratoryDeploy(deployCode: term)
+            .whenComplete(() => () {
+                  print("whenComplete");
+                })
             .catchError((error) {
+      exploratoryDeployError = error;
       showToast(error.toString());
     });
 
+    if (exploratoryDeployError != null) {
+      return;
+    }
     if (result != null &&
         result.result.postBlockData.first.exprs.first.gInt != null) {
       revBalance =
-          result.result.postBlockData.first.exprs.first.gInt.toString();
+          (result.result.postBlockData.first.exprs.first.gInt.toInt() / 10e7)
+              .toString();
       notifyListeners();
-    } else {
-      showToast(tr(
-          "settings.note_settings.readonly_page.unable_to_connect_to_this_node"));
     }
   }
 
@@ -73,8 +72,7 @@ class WalletViewModel extends ChangeNotifier {
     await walletManager.switchWallet(wallet);
     revBalance = "--";
     RxBus.post("SwitchWallet", tag: "WalletChanged");
-    notifyListeners();
-    await getBalance();
+    getBalance();
     notifyListeners();
   }
 

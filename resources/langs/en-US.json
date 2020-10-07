@@ -9,6 +9,10 @@
         "formatNotSupported": "Format is not supported"
 
     },
+    "list_info": {
+        "no_more": "No more data",
+        "empty_list": "No data"
+    },
     "exit_hint": "Exit Capo by pressing the back button twice",
     "copy": "Address Copied",
     "autoBySystem": "Auto",

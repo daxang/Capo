@@ -10,6 +10,11 @@
 
 
     },
+    "list_info": {
+        "no_more": "无更多数据",
+        "empty_list": "暂无数据"
+
+    },
     "exit_hint": "连按2次返回按钮退出 Capo",
     "copy": "地址已复制",
     "autoBySystem": "跟随系统",
@@ -121,8 +126,8 @@
                 "btnTitle": "导入"
             },
             "from_keystore": {
-                "private_key_hint_text": "输入 Keystore",
-                "private_key_not_validate": "Keystore无效",
+                "keystore_hint_text": "输入 Keystore",
+                "keystore_not_validate": "Keystore无效",
                 "importing": "导入中···",
                 "success": "导入成功",
                 "btnTitle": "导入"

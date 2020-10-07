@@ -1,7 +1,7 @@
 {
   "sections": [
     [{
-      "icon": "e850",
+      "icon": "e561",
       "iconFontFamily": "MaterialIcons",
       "context": "settings.wallet",
       "arrow": true,
@@ -10,7 +10,7 @@
     }
     ],
     [{
-      "icon": "e894",
+      "icon": "e7fe",
       "iconFontFamily": "MaterialIcons",
       "context": "settings.language",
       "arrow": true,
@@ -19,7 +19,7 @@
 
     },
       {
-        "icon": "e90f",
+        "icon": "e811",
         "iconFontFamily": "MaterialIcons",
         "context": "settings.dark_mode",
         "arrow": true,
@@ -29,7 +29,7 @@
     ],
     [
       {
-        "icon": "e869",
+        "icon": "e594",
         "iconFontFamily": "MaterialIcons",
         "context": "settings.node_settings",
         "arrow": true,
@@ -39,7 +39,7 @@
       }
     ],
     [{
-      "icon": "e88f",
+      "icon": "e7d9",
       "iconFontFamily": "MaterialIcons",
       "context": "settings.about",
       "arrow": true,

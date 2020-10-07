@@ -18,25 +18,26 @@ class TransactionDetail extends StatefulWidget {
 }
 
 class _TransactionDetailState extends State<TransactionDetail> {
-  String getTransferState(TransferHistoryItem transaction){
-    if(transaction.fromAddr == WalletViewModel.shared.currentWallet.address){
-      if(transaction.success) {
+  String getTransferState(Transaction transaction) {
+    if (transaction.fromAddr == WalletViewModel.shared.currentWallet.address) {
+      if (transaction.isSucceeded) {
         return tr("transaction_detail.transfer_success");
-      }else{
+      } else {
         return tr("transaction_detail.transfer_failed");
       }
-    }else{
-      if(transaction.success) {
+    } else {
+      if (transaction.isSucceeded) {
         return tr("transaction_detail.receive_success");
-      }else{
+      } else {
         return tr("transaction_detail.receive_failed");
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     Map map = ModalRoute.of(context).settings.arguments;
-    TransferHistoryItem transaction = map["transaction"];
+    Transaction transaction = map["transaction"];
     bool isSend =
         transaction.fromAddr == WalletViewModel.shared.currentWallet.address;
     return Scaffold(
@@ -66,8 +67,9 @@ class _TransactionDetailState extends State<TransactionDetail> {
                       borderRadius: BorderRadius.all(Radius.circular(17)),
                       border: new Border.all(
                           width: 2,
-                          color:
-                              transaction.success ? Colors.green : Colors.red),
+                          color: transaction.isSucceeded
+                              ? Colors.green
+                              : Colors.red),
                     ),
                   ),
                   Icon(isSend ? Icons.call_made : Icons.call_received),
@@ -76,13 +78,13 @@ class _TransactionDetailState extends State<TransactionDetail> {
                   height: 8,
                 ),
                 Text(
-                 getTransferState(transaction),
+                  getTransferState(transaction),
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
                 SizedBox(
-                  height: (!transaction.success) ? 8 : 0,
+                  height: (!transaction.isSucceeded) ? 8 : 0,
                 ),
-                !transaction.success
+                !transaction.isSucceeded
                     ? FittedBox(
                         child: Text(
                           transaction.reason,
@@ -126,18 +128,18 @@ class _TransactionDetailState extends State<TransactionDetail> {
           Divider(
             height: 2,
           ),
-          ListTile(
-            onTap: () {
-              showBottomSheet(context, getFee(transaction));
-            },
-            title: Text(
-              tr("transaction_detail.transaction_fee"),
-            ),
-            subtitle: Text(
-              getFee(transaction),
-              style: Theme.of(context).textTheme.caption,
-            ),
-          ),
+//          ListTile(
+//            onTap: () {
+//              showBottomSheet(context, getFee(transaction));
+//            },
+//            title: Text(
+//              tr("transaction_detail.transaction_fee"),
+//            ),
+//            subtitle: Text(
+//              getFee(transaction),
+//              style: Theme.of(context).textTheme.caption,
+//            ),
+//          ),
           Divider(
             height: 2,
           ),
@@ -173,13 +175,13 @@ class _TransactionDetailState extends State<TransactionDetail> {
           ),
           ListTile(
             onTap: () {
-              showBottomSheet(context, transaction.deploy.sig);
+              showBottomSheet(context, transaction.deployId);
             },
             title: Text(
               "DeployID:",
             ),
             subtitle: Text(
-              transaction.deploy.sig,
+              transaction.deployId,
               style: Theme.of(context).textTheme.caption,
             ),
           ),
@@ -188,7 +190,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
     );
   }
 
-  String getAmount(TransferHistoryItem transaction) {
+  String getAmount(Transaction transaction) {
     if (transaction.amount > 0) {
       String amount = capoNumberFormat(transaction.amount / 10e7);
       return amount + " REV";
@@ -196,17 +198,16 @@ class _TransactionDetailState extends State<TransactionDetail> {
     return null;
   }
 
-  String getFee(TransferHistoryItem transaction) {
-    if (transaction.deploy.cost != null && transaction.deploy.cost != 0) {
+  /*String getFee(Transaction transaction) {
+    if (transaction. != null && transaction.cost != 0) {
       String fee = capoNumberFormat(transaction.deploy.cost / 10e7);
       return fee + " REV";
     }
     return null;
   }
-
-  String getTime(TransferHistoryItem transaction) {
-    var date =
-        DateTime.fromMillisecondsSinceEpoch(transaction.deploy.timestamp);
+*/
+  String getTime(Transaction transaction) {
+    var date = DateTime.fromMillisecondsSinceEpoch(transaction.timestamp);
     date.toLocal();
     var formatter = DateFormat('yyyy/MM/dd HH:mm:ss');
     String dateString = formatter.format(date);

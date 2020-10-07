@@ -1,6 +1,7 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:capo/utils/capo_utils.dart';
 import 'package:capo/utils/dialog/capo_dialog_utils.dart';
+import 'package:capo/utils/rnode_networking.dart';
 import 'package:capo/utils/transfer_funds_rho.dart';
 import 'package:capo/utils/wallet_view_model.dart';
 import 'package:decimal/decimal.dart';
@@ -105,6 +106,8 @@ class SendViewModel extends ChangeNotifier {
   doDeploy(String privateKey) async {
     CapoDialogUtils.showProcessIndicator(
         context: buildContext, tip: tr("sendPage.fetching_node"));
+
+    await RNodeNetworking.setDeployGRPCNetwork();
 
     int amount =
         (Decimal.parse(transferAmount) * Decimal.fromInt(10e7.toInt())).toInt();

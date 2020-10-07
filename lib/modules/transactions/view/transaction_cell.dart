@@ -5,19 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionCell extends StatelessWidget {
-  final TransferHistoryItem history;
+  final Transaction history;
   TransactionCell({@required this.history, Key key}) : super(key: key);
 
-  String getTime(TransferHistoryItem transaction) {
-    var date =
-        DateTime.fromMillisecondsSinceEpoch(transaction.deploy.timestamp);
+  String getTime(Transaction transaction) {
+    var date = DateTime.fromMillisecondsSinceEpoch(transaction.timestamp);
     date.toLocal();
     var formatter = DateFormat('yyyy/MM/dd HH:mm:ss');
     String dateString = formatter.format(date);
     return dateString;
   }
 
-  String getAmount(TransferHistoryItem transaction) {
+  String getAmount(Transaction transaction) {
     if (transaction.amount > 0) {
       String amount = capoNumberFormat(transaction.amount / 10e7);
       return amount + " REV";
@@ -46,7 +45,7 @@ class TransactionCell extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(14)),
                   border: new Border.all(
                       width: 2,
-                      color: history.success ? Colors.green : Colors.red),
+                      color: history.isSucceeded ? Colors.green : Colors.red),
                 ),
               ),
               Icon(history.fromAddr ==

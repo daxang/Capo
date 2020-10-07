@@ -1,13 +1,15 @@
-import 'package:capo/modules/transactions/view/transaction_cell.dart';
-import 'package:capo/modules/transactions/view_model/transactions_view_model.dart';
-import 'package:capo/provider/provider_widget.dart';
-import 'package:capo/utils/capo_utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ff_annotation_route/ff_annotation_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_more_list/loading_more_list.dart';
+import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart'
+    as refresh;
 import 'package:rxbus/rxbus.dart';
 
 import 'model/transfer_state_info.dart';
+import 'view/transaction_cell.dart';
+import 'view_model/transactions_repository.dart';
 
 @FFRoute(name: "capo://icapo.app/transactions")
 class TransactionsPage extends StatefulWidget {
@@ -21,33 +23,29 @@ class _TransactionsPageState extends State<TransactionsPage>
     with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
   @override
   bool get wantKeepAlive => true;
-
-  final TransactionsViewModel _transactionsViewModel = TransactionsViewModel();
-  GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
-
-
+  TransactionsRepository listSourceRepository;
 
   @override
   void initState() {
-    super.initState();
-    refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+    listSourceRepository = TransactionsRepository();
 
-    RxBus.register<String>(tag: "WalletChanged")
-        .listen((event) => setState(() {
-          if(event == "SwitchWallet"){
-            refreshIndicatorKey.currentState.show();
+    RxBus.register<String>(tag: "WalletChanged").listen((event) => setState(() {
+          if (event == "SwitchWallet") {
+            listSourceRepository.refresh();
           }
-    }));
+        }));
+    super.initState();
+  }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      refreshIndicatorKey.currentState.show();
-    });
+  @override
+  void dispose() {
+    listSourceRepository?.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    _transactionsViewModel.context = context;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(44),
@@ -60,60 +58,173 @@ class _TransactionsPageState extends State<TransactionsPage>
         ),
       ),
       body: SafeArea(
-        child: RefreshIndicator(
-            key: refreshIndicatorKey,
-            backgroundColor: HexColor.mainColor,
-            color: Colors.white,
-            onRefresh: _transactionsViewModel.getTransactions,
-            child: ProviderWidget<TransactionsViewModel>(
-              model: _transactionsViewModel,
-              builder: (_, viewModel, __) {
-                return ListView.builder(
-//                    scrollDirection: Axis.vertical,
-//                    shrinkWrap: true,
-                    itemCount: (viewModel.historyModel == null || viewModel.historyModel.history.length == 0)
-                        ? 1
-                        : viewModel.historyModel.history.length,
-                    itemBuilder: (context, index) {
-                      if (viewModel.historyModel == null ||
-                          viewModel.historyModel.history.length == 0) {
-                        return Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 200,
-                            ),
-                            Icon(
-                              Icons.search,
-                              size: 52,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              tr("transactions.no_transactions"),
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .caption
-                                      .color),
-                            ),
-//                            SizedBox(
-//                              height: 1000,
-//                            ),
-                          ],
-                        );
-                      }
-                      TransferHistoryItem history =
-                          viewModel.historyModel.history[index];
-                      return TransactionCell(
-                        key: UniqueKey(),
-                        history: history,
-                      );
-                    });
-              },
-            )),
+        child: refresh.PullToRefreshNotification(
+          onRefresh: listSourceRepository.refresh,
+          // pullBackDuration: const Duration(seconds: 1),
+          // pullBackOnRefresh: true,
+          child: ListView(children: <Widget>[
+            refresh.PullToRefreshContainer(buildPulltoRefreshWidget),
+            LoadingMoreList(
+              ListConfig<Transaction>(
+                itemBuilder:
+                    ((BuildContext context, Transaction item, int index) {
+                  return TransactionCell(
+                    key: UniqueKey(),
+                    history: item,
+                  );
+                }),
+                sourceList: listSourceRepository,
+                padding: EdgeInsets.all(0.0),
+                indicatorBuilder: _buildIndicator,
+              ),
+            ),
+          ]),
+        ),
+//
       ),
+    );
+  }
+
+  Widget buildPulltoRefreshWidget(
+      refresh.PullToRefreshScrollNotificationInfo info) {
+    double maxOffset() {
+      if (info != null && info.dragOffset != null) {
+        return info.dragOffset > 60 ? 60 : info.dragOffset;
+      }
+      return 0;
+    }
+
+    final double offset = maxOffset();
+    Widget refreshWidget = Container(
+      margin: const EdgeInsets.only(right: 5.0),
+      height: 0.0,
+      width: 0.0,
+      child: getIndicator(context),
+    );
+
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        Container(
+            height: (info == null || info.mode == null) ? 0 : offset,
+            width: double.infinity),
+        (info == null || info.mode == null) ? Container() : refreshWidget
+      ],
+    );
+  }
+
+  Widget _buildIndicator(BuildContext context, IndicatorStatus status) {
+    //if your list is sliver list ,you should build sliver indicator for it
+    //isSliver=true, when use it in sliver list
+    const bool isSliver = false;
+    final double bodyHeight = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).viewPadding.top -
+        kToolbarHeight -
+        kBottomNavigationBarHeight;
+    Widget widget;
+    switch (status) {
+      case IndicatorStatus.none:
+        widget = Container(height: 0.0);
+        widget = _setbackground(false, widget, 35.0);
+        break;
+      case IndicatorStatus.loadingMoreBusying:
+        widget = Container(
+          margin: const EdgeInsets.only(right: 5.0),
+          height: 15.0,
+          width: 15.0,
+          child: getIndicator(context),
+        );
+        widget = _setbackground(false, widget, 35.0);
+        break;
+      case IndicatorStatus.fullScreenBusying:
+        widget = Container(
+          margin: const EdgeInsets.only(right: 0.0),
+          height: 30.0,
+          width: 30.0,
+          child: getIndicator(context),
+        );
+        widget = _setbackground(true, widget, bodyHeight);
+        // if (isSliver) {
+        //   widget = SliverFillRemaining(
+        //     child: widget,
+        //   );
+        // } else {
+        //   widget = SliverFillRemaining(
+        //     child: widget,
+        //   );
+        // }
+        break;
+      case IndicatorStatus.error:
+        widget = Text(tr("appError.genericError"));
+        widget = _setbackground(false, widget, 35.0);
+
+        widget = GestureDetector(
+          onTap: () {
+            listSourceRepository.errorRefresh();
+          },
+          child: widget,
+        );
+
+        break;
+      case IndicatorStatus.fullScreenError:
+        widget = Text(tr("appError.genericError"));
+        widget = _setbackground(true, widget, bodyHeight);
+        widget = GestureDetector(
+          onTap: () {
+            listSourceRepository.errorRefresh();
+          },
+          child: widget,
+        );
+        if (isSliver) {
+          widget = SliverFillRemaining(
+            child: widget,
+          );
+        } else {
+          widget = CustomScrollView(
+            slivers: <Widget>[
+              SliverFillRemaining(
+                child: widget,
+              )
+            ],
+          );
+        }
+        break;
+      case IndicatorStatus.noMoreLoad:
+        widget = Text(tr("list_info.no_more"));
+        widget = _setbackground(false, widget, bodyHeight);
+        break;
+      case IndicatorStatus.empty:
+        // widget = EmptyWidget(
+        //   tr("list_info.empty_list"),
+        // );
+        // widget = _setbackground(true, widget, double.infinity);
+        // if (isSliver) {
+        //   widget = SliverToBoxAdapter(
+        //     child: widget,
+        //   );
+        // }
+        widget = Text(tr("list_info.empty_list"));
+        widget = _setbackground(false, widget, bodyHeight);
+        break;
+    }
+    return widget;
+  }
+
+  Widget _setbackground(bool full, Widget widget, double height) {
+    widget = Container(
+        width: double.infinity,
+        height: height,
+        child: widget,
+        color: Colors.grey[200],
+        alignment: Alignment.center);
+    return widget;
+  }
+
+  Widget getIndicator(BuildContext context) {
+    final TargetPlatform platform = Theme.of(context).platform;
+    return const CupertinoActivityIndicator(
+      animating: true,
+      radius: 16.0,
     );
   }
 }

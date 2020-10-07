@@ -47,24 +47,9 @@ class RNodeNetworking {
     RNodeExploratoryDeployGRPCService.shared.setDeployChannelHost(host: host);
   }
 
-  static Future<Dio> get rNodeDio async {
-    var model = await ReadonlyViewModel.getReadOnlyNodeSetting();
-    String baseUrl = model.selectedNode;
-    Dio dio = Dio(BaseOptions(baseUrl: baseUrl, connectTimeout: 60000));
-    // if (!inProduction) {
-    //   (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-    //       (client) {
-    //     client.findProxy = (url) {
-    //       return "PROXY 127.0.0.1:9999";
-    //     };
-    //   };
-    // }
-    return dio;
-  }
-
   static Dio get rNodeStatusDio {
-    Dio dio = Dio(BaseOptions(
-        baseUrl: "http://revdefine.io:7070", connectTimeout: 10000));
+    Dio dio =
+        Dio(BaseOptions(baseUrl: "http://revdefine.io", connectTimeout: 10000));
 
     return dio;
   }

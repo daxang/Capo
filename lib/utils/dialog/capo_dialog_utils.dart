@@ -48,6 +48,7 @@ class CapoDialogUtils {
     WalletViewModel walletViewModel =
         Provider.of<WalletViewModel>(buildContext);
     BasicWallet wallet = walletViewModel.currentWallet;
+    var decryptError;
     showDialog(
         context: buildContext,
         builder: (_) {
@@ -58,9 +59,13 @@ class CapoDialogUtils {
               final String privateKey = await wallet
                   .exportPrivateKey(password: password)
                   .catchError((error) {
+                decryptError = error;
                 Navigator.pop(buildContext);
                 showErrorDialog(error: error, context: buildContext);
               });
+              if (decryptError != null) {
+                return;
+              }
               Navigator.pop(buildContext);
               if (decryptSuccess != null) {
                 decryptSuccess(privateKey);
