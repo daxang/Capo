@@ -29,9 +29,12 @@ class _TransactionsPageState extends State<TransactionsPage>
   void initState() {
     listSourceRepository = TransactionsRepository();
 
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      key.currentState.show(notificationDragOffset: 80);
+    });
     RxBus.register<String>(tag: "WalletChanged").listen((event) => setState(() {
           if (event == "SwitchWallet") {
-            listSourceRepository.refresh();
+            key.currentState.show(notificationDragOffset: 80);
           }
         }));
     super.initState();
@@ -43,6 +46,8 @@ class _TransactionsPageState extends State<TransactionsPage>
     super.dispose();
   }
 
+  final GlobalKey<refresh.PullToRefreshNotificationState> key =
+      GlobalKey<refresh.PullToRefreshNotificationState>();
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -57,15 +62,16 @@ class _TransactionsPageState extends State<TransactionsPage>
           ),
         ),
       ),
-      body: SafeArea(
-        child: refresh.PullToRefreshNotification(
+      body: Stack(children: <Widget>[
+        refresh.PullToRefreshNotification(
+          key: key,
           onRefresh: listSourceRepository.refresh,
-          // pullBackDuration: const Duration(seconds: 1),
-          // pullBackOnRefresh: true,
-          child: ListView(children: <Widget>[
-            refresh.PullToRefreshContainer(buildPulltoRefreshWidget),
-            LoadingMoreList(
-              ListConfig<Transaction>(
+          child: CustomScrollView(slivers: <Widget>[
+            refresh.PullToRefreshContainer(buildPulltoRefreshHeader),
+            LoadingMoreSliverList(
+              SliverListConfig<Transaction>(
+                autoRefresh: false,
+                // scrollDirection: Axis.vertical,
                 itemBuilder:
                     ((BuildContext context, Transaction item, int index) {
                   return TransactionCell(
@@ -74,49 +80,61 @@ class _TransactionsPageState extends State<TransactionsPage>
                   );
                 }),
                 sourceList: listSourceRepository,
-                padding: EdgeInsets.all(0.0),
+                padding: new EdgeInsets.all(0),
                 indicatorBuilder: _buildIndicator,
               ),
             ),
           ]),
         ),
-//
-      ),
+      ]),
     );
   }
 
-  Widget buildPulltoRefreshWidget(
+  Widget buildPulltoRefreshHeader(
       refresh.PullToRefreshScrollNotificationInfo info) {
-    double maxOffset() {
-      if (info != null && info.dragOffset != null) {
-        return info.dragOffset > 60 ? 60 : info.dragOffset;
-      }
-      return 0;
+    final double offset = info?.dragOffset ?? 0.0;
+    final refresh.RefreshIndicatorMode mode = info?.mode;
+    final double bodyHeight = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).viewPadding.top -
+        kToolbarHeight -
+        kBottomNavigationBarHeight;
+    print("info: ${mode}");
+    Widget child;
+    if (mode == refresh.RefreshIndicatorMode.error) {
+      listSourceRepository.clear();
+
+      child = Text(tr("list_info.fetch_data_error"));
+      child = _setbackground(true, child, bodyHeight);
+      child = GestureDetector(
+        onTap: () {
+          info?.pullToRefreshNotificationState?.show();
+        },
+        child: child,
+      );
+    } else {
+      Widget refreshWidget = Container(
+        margin: const EdgeInsets.only(right: 5.0),
+        height: 0.0,
+        width: 0.0,
+        color: Colors.red,
+        child: getIndicator(context),
+      );
+      child = Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Container(height: offset > 60 ? 60 : offset, width: double.infinity),
+          refreshWidget
+        ],
+      );
     }
 
-    final double offset = maxOffset();
-    Widget refreshWidget = Container(
-      margin: const EdgeInsets.only(right: 5.0),
-      height: 0.0,
-      width: 0.0,
-      child: getIndicator(context),
-    );
-
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        Container(
-            height: (info == null || info.mode == null) ? 0 : offset,
-            width: double.infinity),
-        (info == null || info.mode == null) ? Container() : refreshWidget
-      ],
+    return SliverToBoxAdapter(
+      child: child,
     );
   }
 
   Widget _buildIndicator(BuildContext context, IndicatorStatus status) {
-    //if your list is sliver list ,you should build sliver indicator for it
-    //isSliver=true, when use it in sliver list
-    const bool isSliver = false;
+    print("status: $status");
     final double bodyHeight = MediaQuery.of(context).size.height -
         MediaQuery.of(context).viewPadding.top -
         kToolbarHeight -
@@ -137,36 +155,42 @@ class _TransactionsPageState extends State<TransactionsPage>
         widget = _setbackground(false, widget, 35.0);
         break;
       case IndicatorStatus.fullScreenBusying:
-        widget = Container(
-          margin: const EdgeInsets.only(right: 0.0),
-          height: 30.0,
-          width: 30.0,
-          child: getIndicator(context),
-        );
-        widget = _setbackground(true, widget, bodyHeight);
-        // if (isSliver) {
-        //   widget = SliverFillRemaining(
-        //     child: widget,
-        //   );
-        // } else {
-        //   widget = SliverFillRemaining(
-        //     child: widget,
-        //   );
-        // }
+        widget = SliverToBoxAdapter(child: Container());
+
+        // widget = Container(
+        //   margin: const EdgeInsets.only(right: 0.0),
+        //   height: 30.0,
+        //   width: 30.0,
+        //   child: getIndicator(context),
+        // );
+        // widget = _setbackground(true, widget, bodyHeight);
+        // widget = SliverToBoxAdapter(
+        //   child: widget,
+        // );
+
         break;
       case IndicatorStatus.error:
-        widget = Text(tr("appError.genericError"));
-        widget = _setbackground(false, widget, 35.0);
-
-        widget = GestureDetector(
-          onTap: () {
-            listSourceRepository.errorRefresh();
-          },
-          child: widget,
+        widget = Container(
+          height: 0,
         );
+
+        // widget = Text(tr("appError.genericError"));
+        // widget = _setbackground(false, widget, 35.0);
+        //
+        // widget = GestureDetector(
+        //   onTap: () {
+        //     key.currentState.show(notificationDragOffset: 80);
+        //   },
+        //   child: widget,
+        // );
 
         break;
       case IndicatorStatus.fullScreenError:
+        widget = Container();
+        widget = SliverToBoxAdapter(
+          child: widget,
+        );
+        break;
         widget = Text(tr("list_info.fetch_data_error"));
         widget = _setbackground(true, widget, bodyHeight);
         widget = GestureDetector(
@@ -175,14 +199,20 @@ class _TransactionsPageState extends State<TransactionsPage>
           },
           child: widget,
         );
+        widget = SliverToBoxAdapter(
+          child: widget,
+        );
         break;
       case IndicatorStatus.noMoreLoad:
         widget = Text(tr("list_info.no_more"));
-        widget = _setbackground(false, widget, bodyHeight);
+        widget = _setbackground(false, widget, 55);
         break;
       case IndicatorStatus.empty:
         widget = Text(tr("list_info.empty_list"));
         widget = _setbackground(false, widget, bodyHeight);
+        widget = SliverToBoxAdapter(
+          child: widget,
+        );
         break;
     }
     return widget;
@@ -193,7 +223,7 @@ class _TransactionsPageState extends State<TransactionsPage>
         width: double.infinity,
         height: height,
         child: widget,
-        color: Colors.grey[200],
+        // color: Colors.grey[200],
         alignment: Alignment.center);
     return widget;
   }

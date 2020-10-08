@@ -1,6 +1,8 @@
 import 'package:capo/modules/settings/settings_modules/node_settings/view/readonly/view_model/readonly_view_model.dart';
 import 'package:capo/modules/settings/settings_modules/node_settings/view/validator/model/validator_cell_model.dart';
 import 'package:capo/modules/settings/settings_modules/node_settings/view/validator/view_model/validator_view_model.dart';
+import 'package:capo/utils/capo_utils.dart';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:rnode_grpc_dart/rnode_grpc_dart.dart';
 
@@ -49,8 +51,15 @@ class RNodeNetworking {
 
   static Dio get rNodeStatusDio {
     Dio dio =
-        Dio(BaseOptions(baseUrl: "http://revdefine.io", connectTimeout: 10000));
-
+        Dio(BaseOptions(baseUrl: "http://revdefine.io", connectTimeout: 20000));
+    if (!inProduction) {
+      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (client) {
+        client.findProxy = (uri) {
+          return "PROXY 192.168.55.121:8888";
+        };
+      };
+    }
     return dio;
   }
 }
