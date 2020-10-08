@@ -52,14 +52,14 @@ class RNodeNetworking {
   static Dio get rNodeStatusDio {
     Dio dio =
         Dio(BaseOptions(baseUrl: "http://revdefine.io", connectTimeout: 20000));
-    if (!inProduction) {
-      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (client) {
-        client.findProxy = (uri) {
-          return "PROXY 192.168.55.121:8888";
-        };
-      };
-    }
+    // if (!inProduction) {
+    //   (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //       (client) {
+    //     client.findProxy = (uri) {
+    //       return "PROXY 192.168.55.121:8888";
+    //     };
+    //   };
+    // }
     return dio;
   }
 }
