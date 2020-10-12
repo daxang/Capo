@@ -90,7 +90,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "11ca42186c78c6ec4fb9866a9b5df8bfc06949d0"
+      resolved-ref: "61519b1132c6d28e4e2a9de9e9d19ff66d94aa3b"
       url: "https://github.com/matteozero/Capo_Core_Dart.git"
     source: git
     version: "0.0.1"
@@ -99,7 +99,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "207092c454244ca535b3b43783c3574463da4722"
+      resolved-ref: "59d32d25602158af4987dfaa0ab9835c83d19a59"
       url: "https://github.com/matteozero/capo_token_core_plugin.git"
     source: git
     version: "0.0.1"
@@ -376,7 +376,7 @@ packages:
       name: html
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.14.0+3"
+    version: "0.14.0+4"
   http:
     dependency: transitive
     description:
@@ -558,7 +558,7 @@ packages:
       name: pedantic
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.9.0"
+    version: "1.9.2"
   permission_handler:
     dependency: "direct main"
     description:
@@ -896,7 +896,7 @@ packages:
       name: xdg_directories
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.2"
   yaml:
     dependency: transitive
     description:

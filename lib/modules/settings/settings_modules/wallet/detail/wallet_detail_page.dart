@@ -50,11 +50,9 @@ class WalletDetailPage extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
-                        borderRadius: viewModel.showExportMnemonic
-                            ? BorderRadius.only(
-                                topLeft: Radius.circular(8.0),
-                                topRight: Radius.circular(8.0))
-                            : BorderRadius.all(Radius.circular(8.0)),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8.0),
+                            topRight: Radius.circular(8.0)),
                       ),
                       child: ListTile(
                         title: Text(
@@ -79,9 +77,7 @@ class WalletDetailPage extends StatelessWidget {
                               Container(
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).cardColor,
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(8.0),
-                                      bottomLeft: Radius.circular(8.0)),
+                                  // borderRadius: BorderRadius.all(0),
                                 ),
                                 child: ListTile(
                                   title: Text(tr(
@@ -109,8 +105,8 @@ class WalletDetailPage extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Theme.of(context).cardColor,
                             borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(8.0),
-                                bottomLeft: Radius.circular(8.0)),
+                                bottomLeft: Radius.circular(8.0),
+                                bottomRight: Radius.circular(8.0)),
                           ),
                           child: ListTile(
                             title: Text(
