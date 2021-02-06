@@ -22,6 +22,7 @@
     "bottomTabBar": {
         "balance": "余额",
         "transactions": "转账记录",
+        "browser": "浏览",
         "settings": "设置"
     },
     "balancePage": {
@@ -56,7 +57,7 @@
         "sending": "发送中···",
         "deploySuccess": "交易已发送,请等待确认",
         "deployFailed": "交易发送失败",
-        "thanks_donate": "感谢您捐赠 Capo",
+        "thanks_donate": "感谢你捐赠 Capo",
         "photo": "相册",
         "scan": "扫描",
         "showModalBottomSheet":{
@@ -87,7 +88,7 @@
             "tip": {
                 "backup_tip": "备份提示",
                 "desc": "获得助记词等于拥有钱包资产所有权",
-                "first_tip": "1. 该密码将作为钱包的交易密码。Capo 不会存储密码，也无法帮您找回，请务必妥善保管密码。",
+                "first_tip": "1. 该密码将作为钱包的交易密码。Capo 不会存储密码，也无法帮你找回，请务必妥善保管密码。",
                 "second_tip": "2. 助记词由英文单词组成，请抄写并妥善保管。",
                 "third_tip": "3. 助记词丢失，无法找回，请务必备份助记词。",
                 "next_btn": "下一步"
@@ -163,7 +164,8 @@
         "wallet": "钱包",
         "language": "语言",
         "dark_mode": "夜间模式",
-        "node_settings": "节点设置",
+        "node_settings_title": "节点设置",
+        "dApp_settings_title": "DApp 设置",
         "about": "关于",
 
         "wallets": {
@@ -228,7 +230,7 @@
             "dark": "深色",
             "light": "浅色"
         },
-        "note_settings": {
+        "node_settings": {
             "title": "节点设置",
             "readonly_node": "只读节点",
             "validator_node": "验证节点",
@@ -272,6 +274,17 @@
             }
 
         },
+        "dApp_settings": {
+            "title": "DApp 设置",
+            "clear_DApp_allowance": "清空 DApp 授权",
+            "clear_alert_context": "清除授权记录后，已授权的 DApp 访问钱包地址时将需要重新授权",
+            "clear_alert_cancel": "取消",
+            "clear_alert_confirm": "确认",
+            "clear_alert_success": "清空 DApp 授权成功"
+
+
+
+        },
         "about_page": {
             "title": "关于",
             "version_update": "检查更新",
@@ -279,7 +292,9 @@
             "open": "打开",
             "terms_and_privacy":{
                 "title": "条款和隐私",
-                "terms": "* Capo 是一款为RChain开发的移动端钱包。您的资产安全的储存在 RChain 网络上，私钥是您的唯一资产凭证。\n* Capo 使用密码加密算法加密您的私钥和助记词，您的私钥和助记词以 Keystore 文件的形式保存在设备上。\n* 您的职责是备份私钥和助记词并保证其安全,记住您的钱包密码。绝对不要向任何人展示私钥和助记词。如果丢失，遗忘或被盗，您的资金将会被拥有私钥，助记词的人使用。\n* 不要对您的手机进行越狱或 root ，不要安装来源不明(不可靠)的应用。\n* Capo 是一款开源的应用, 您可以通过[GitHub](https://github.com/matteozero/Capo)查看源代码。\n* 如您喜欢 Capo ,您可以点此 [捐赠](capo://icapo.app/balance/send) Capo 。"
+                "terms":"* Capo 是一款为 RChain 开发的移动端钱包。你的资产安全的储存在 RChain 网络上，私钥是你的唯一资产凭证。\n* Capo 不会保存你的私钥和助记词， Capo 使用密码加密算法加密你的私钥和助记词，你的私钥和助记词以 Keystore 文件的形式保存在设备上。\n*  你的职责是备份私钥和助记词并保证其安全,记住你的钱包密码。绝对不要向任何人展示私钥和助记词。如果丢失，遗忘或被盗，你的资金将会被拥有私钥，助记词的人使用。 \n* 不要对你的手机进行越狱或 root ，不要安装来源不明(不可靠)的应用。\n* 你在使用第三方 DApp 时，由第三方 DApp 直接并单独向你承担责任。如 DApp 要求你输入私钥，助记词等敏感信息，请 拒绝 并举报该应用。\n* Capo 是一款开源的应用, 可以通过[GitHub](https://github.com/matteozero/Capo)查看源代码。 如你喜欢 Capo ,你可以点此 [捐赠](capo://icapo.app/balance/send) Capo 。\n#####  秉承着区块链的去中心化特点，并为了保护你数字代币安全，Capo 提供的是去中心化服务，大大区别于银行业金融机构。用户应该在使用 Capo 前，了解去中心化钱包的相关知识。用户了解并接受，Capo 不承担以下责任：\n**（1）存储用户的钱包密码（即用户创建/导入钱包时设置的密码）、私钥、助记词或Keystore；**\n**（2）找回用户的钱包密码、私钥、助记词或Keystore；**\n**（3）冻结钱包；**\n**（4）挂失钱包；**\n**（5）恢复钱包；**\n**（6）交易回滚。**\n**如果你不同意本协议条款，你应立即停止使用 Capo。如果你已经下载了 Capo，请立即删除。**"
+
+
             }
         }
     },
@@ -289,6 +304,18 @@
         "empty_password": "密码为空",
         "password_length_error": "密码长度错误",
         "btn_title": "确认"
+
+    },
+    "DApp_browser": {
+        "address_access_desc": "正在申请访问你的钱包地址，你确认将此钱包地址公开给此网站吗？",
+        "contract_access_desc": "正在申请调用智能合约，这会支付REV, 你确认调用此智能合约吗？",
+        "reject": "拒绝",
+        "confirm": "确认",
+        "user_not_authorized": "用户未授权",
+        "dApp_not_authorized": "DApp 未认证，无法访问",
+        "contract_error": "智能合约错误",
+        "password_error": "密码错误",
+        "deploy_error": "合约部署失败"
 
     }
 }

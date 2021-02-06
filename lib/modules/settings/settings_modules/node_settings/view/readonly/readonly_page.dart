@@ -17,7 +17,7 @@ class NodeSettingReadonlyPage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(44),
         child: AppBar(
-          title: Text(tr("settings.note_settings.readonly_page.title"),
+          title: Text(tr("settings.node_settings.readonly_page.title"),
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
         ),
       ),
@@ -92,8 +92,11 @@ class NodeSettingReadonlyPage extends StatelessWidget {
                                           fit: BoxFit.scaleDown,
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            viewModel.tableViewSections
-                                                .sections[section][row].url,
+                                            viewModel
+                                                    .tableViewSections
+                                                    .sections[section][row]
+                                                    .url ??
+                                                "",
                                             maxLines: 1,
                                             style: TextStyle(fontSize: 14),
                                           ),
@@ -132,9 +135,9 @@ class NodeSettingReadonlyPage extends StatelessWidget {
                                       padding: const EdgeInsets.all(16.0),
                                       child: Text(section == 0
                                           ? tr(
-                                              "settings.note_settings.readonly_page.official")
+                                              "settings.node_settings.readonly_page.official")
                                           : tr(
-                                              "settings.note_settings.readonly_page.custom")),
+                                              "settings.node_settings.readonly_page.custom")),
                                     ));
                               },
                             ),
@@ -157,7 +160,7 @@ class NodeSettingReadonlyPage extends StatelessWidget {
                                 Center(
                                   child: FlatButton(
                                     child: Text(
-                                      tr("settings.note_settings.readonly_page.add_custom_node"),
+                                      tr("settings.node_settings.readonly_page.add_custom_node"),
                                       style:
                                           TextStyle(color: HexColor.mainColor),
                                     ),
@@ -183,7 +186,7 @@ class NodeSettingReadonlyPage extends StatelessWidget {
       builder: (BuildContext context) => CupertinoAlertDialog(
         title: Column(
           children: <Widget>[
-            Text(tr("settings.note_settings.readonly_page.delete_node")),
+            Text(tr("settings.node_settings.readonly_page.delete_node")),
             SizedBox(
               height: 10,
             ),
@@ -239,7 +242,7 @@ class NodeSettingReadonlyPage extends StatelessWidget {
                     width: double.infinity,
                     child: Center(
                         child: Text(
-                      tr("settings.note_settings.readonly_page.add_custom_node"),
+                      tr("settings.node_settings.readonly_page.add_custom_node"),
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     )),
@@ -262,7 +265,7 @@ class NodeSettingReadonlyPage extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: Center(
                       child: Text(
-                        tr("settings.note_settings.readonly_page.warning"),
+                        tr("settings.node_settings.readonly_page.warning"),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -283,7 +286,7 @@ class NodeSettingReadonlyPage extends StatelessWidget {
                               pressedOpacity: 0.8,
                               color: Color.fromARGB(255, 51, 118, 184),
                               child: Text(
-                                tr("settings.note_settings.readonly_page.understood"),
+                                tr("settings.node_settings.readonly_page.understood"),
                                 style: Theme.of(context).textTheme.button,
                               ),
                               onPressed: () {
@@ -307,9 +310,9 @@ class NodeSettingReadonlyPage extends StatelessWidget {
         builder: (_) {
           return CapoTextFieldDialog(
             topTitle:
-                tr("settings.note_settings.readonly_page.text_dialog.title"),
+                tr("settings.node_settings.readonly_page.text_dialog.title"),
             labelText: tr(
-                "settings.note_settings.readonly_page.text_dialog.label_text"),
+                "settings.node_settings.readonly_page.text_dialog.label_text"),
             hint: "https://icapo.app",
             inputCallback: (text) {
               viewModel.addCustomNode(text);

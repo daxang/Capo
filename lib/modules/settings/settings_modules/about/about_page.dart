@@ -9,8 +9,8 @@ import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_xupdate/flutter_xupdate.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @FFRoute(name: "capo://icapo.app/settings/about")
@@ -46,14 +46,12 @@ class CapoAboutPage extends StatelessWidget {
                       width: 50.0,
                     ),
                     Container(
-//                      color: Colors.red,
-                      width: 80,
+                      // color: Colors.red,
+                      width: 100,
                       child: ListTile(
-                        title: FittedBox(
-                          child: Text(
-                            "Capo",
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
+                        title: Text(
+                          "Capo",
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                         subtitle: Text(
                           viewModel.version != null ? viewModel.version : "",
@@ -131,7 +129,7 @@ class CapoAboutPage extends StatelessWidget {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      showToast('Could not launch $url');
+      SmartDialog.showToast('Could not launch $url');
     }
   }
 
@@ -139,10 +137,10 @@ class CapoAboutPage extends StatelessWidget {
     CapoDialogUtils.showProcessIndicator(context: context);
     FlutterXUpdate.setUpdateHandler(
         onUpdateError: (Map<String, dynamic> message) async {
-      showToast(message["message"], dismissOtherToast: true);
+      SmartDialog.showToast(message["message"]);
     });
     UpdateEntity entity = await fetchUpdateEntity().catchError((error) {
-      showToast(error.toString());
+      SmartDialog.showToast(error.toString());
       Navigator.pop(context);
     });
     if (entity != null) {
@@ -205,7 +203,7 @@ class CapoAboutPage extends StatelessWidget {
                 onPressed: () async {
                   final data = ClipboardData(text: copyContent);
                   await Clipboard.setData(data);
-                  showToast(tr("transaction_detail.copy_hint"));
+                  SmartDialog.showToast(tr("transaction_detail.copy_hint"));
                   Navigator.pop(context);
                 },
               ),
@@ -232,7 +230,7 @@ class CapoAboutPage extends StatelessWidget {
                   if (await canLaunch(copyContent)) {
                     await launch(copyContent);
                   } else {
-                    showToast('Could not launch $copyContent');
+                    SmartDialog.showToast('Could not launch $copyContent');
                   }
                 },
               ),

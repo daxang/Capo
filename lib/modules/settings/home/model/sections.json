@@ -31,11 +31,22 @@
       {
         "icon": "e594",
         "iconFontFamily": "MaterialIcons",
-        "context": "settings.node_settings",
+        "context": "settings.node_settings_title",
         "arrow": true,
         "divideLine": false,
         "url": "capo://icapo.app/settings/node_settings"
 
+      }
+    ],
+
+    [
+      {
+        "icon": "e5a4",
+        "iconFontFamily": "MaterialIcons",
+        "context": "settings.dApp_settings_title",
+        "arrow": true,
+        "divideLine": false,
+        "url": "capo://icapo.app/settings/dApp_settings"
       }
     ],
     [{

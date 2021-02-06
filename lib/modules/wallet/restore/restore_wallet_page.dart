@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/material.dart';
 
-import 'from_mnemonic/view/from_mnemonic_view.dart';
 import 'from_private_key/view/from_private_key_view.dart';
 
 @FFRoute(name: "capo://icapo.app/wallet/restore")
@@ -26,7 +25,7 @@ class TabBarDemoState extends State<TabBarDemo>
 
   void initState() {
     super.initState();
-    _tabController = new TabController(vsync: this, length: 3);
+    _tabController = new TabController(vsync: this, length: 2);
     _tabController.addListener(() {
       FocusScope.of(context).requestFocus(FocusNode());
     });
@@ -42,9 +41,9 @@ class TabBarDemoState extends State<TabBarDemo>
           indicatorColor: Color.fromARGB(255, 51, 118, 184),
           indicatorSize: TabBarIndicatorSize.label,
           tabs: <Widget>[
-            Tab(
-              text: tr("wallet.restore.mnemonic"),
-            ),
+            // Tab(
+            //   text: tr("wallet.restore.mnemonic"),
+            // ),
             Tab(
               text: tr("wallet.restore.private_key"),
             ),
@@ -58,7 +57,7 @@ class TabBarDemoState extends State<TabBarDemo>
       body: new TabBarView(
         controller: _tabController,
         children: <Widget>[
-          FromMnemonicView(),
+          // FromMnemonicView(),
           FromPrivateKeyView(),
           FromKeystoreView()
         ],

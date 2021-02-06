@@ -11,7 +11,7 @@ class NodeSettings extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(44),
         child: AppBar(
-          title: Text(tr("settings.note_settings.title"),
+          title: Text(tr("settings.node_settings.title"),
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
         ),
       ),
@@ -24,7 +24,7 @@ class NodeSettings extends StatelessWidget {
             color: Theme.of(context).cardColor,
             child: ListTile(
               leading: Text(
-                tr("settings.note_settings.readonly_node"),
+                tr("settings.node_settings.readonly_node"),
                 style: TextStyle(fontSize: 16),
               ),
               trailing: Icon(
@@ -48,7 +48,7 @@ class NodeSettings extends StatelessWidget {
                     "capo://icapo.app/settings/node_settings/validator");
               },
               leading: Text(
-                tr("settings.note_settings.validator_node"),
+                tr("settings.node_settings.validator_node"),
                 style: TextStyle(fontSize: 16),
               ),
               trailing: Icon(

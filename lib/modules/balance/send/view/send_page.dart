@@ -9,8 +9,8 @@ import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:r_scan/r_scan.dart';
 
@@ -104,7 +104,7 @@ class SendPage extends StatelessWidget {
             final result = await RScan.scanImagePath(file.path);
             Navigator.pop(context);
             if (result == null) {
-              showToast(tr("appError.nothingScanned"));
+              SmartDialog.showToast(tr("appError.nothingScanned"));
               return;
             }
             if (result != null && result.message.length > 0) {

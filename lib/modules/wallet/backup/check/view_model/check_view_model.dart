@@ -1,11 +1,9 @@
 import 'package:capo/modules/common/view/loading.dart';
-import 'package:capo/utils/wallet_view_model.dart';
 import 'package:capo_core_dart/capo_core_dart.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CheckViewModel extends ChangeNotifier {
@@ -72,19 +70,20 @@ class CheckViewModel extends ChangeNotifier {
     });
 
     Navigator.of(context).pop();
-    showToastWidget(
-      Loading(
-        widget: Icon(
-          Icons.check,
-          size: 50,
-        ),
-        text: tr("wallet.backup.check.success"),
+    SmartDialog.show(
+        widget: Loading(
+      widget: Icon(
+        Icons.check,
+        size: 50,
       ),
-      context: context,
-      dismissOtherToast: true,
-    );
+      text: tr("wallet.backup.check.success"),
+    ));
+
     Navigator.pushNamedAndRemoveUntil(
         context, "capo://icapo.app/tabbar", (Route<dynamic> route) => false);
+
+    await Future.delayed(Duration(seconds: 2));
+    SmartDialog.dismiss();
   }
 
   bool checkMnemonic() {
@@ -139,17 +138,14 @@ class CheckViewModel extends ChangeNotifier {
       errorText = tr("appError.genericError");
     }
 
-    showToastWidget(
-        Loading(
-          widget: Icon(
-            Icons.close,
-            size: 50,
-          ),
-          text: errorText,
-        ),
-        context: context,
-        dismissOtherToast: true,
-        handleTouch: true);
+    SmartDialog.show(
+        widget: Loading(
+      widget: Icon(
+        Icons.close,
+        size: 50,
+      ),
+      text: errorText,
+    ));
   }
 
   bool _disposed = false;

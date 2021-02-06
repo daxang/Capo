@@ -5,7 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class AssetCard extends StatefulWidget {
   @override
@@ -95,18 +95,6 @@ class _AssetCardState extends State<AssetCard>
                               Stack(
                                 alignment: const Alignment(0, 0),
                                 children: <Widget>[
-                                  viewModel.isFinishLoading
-                                      ? Container()
-                                      : SizedBox(
-                                          width: 25,
-                                          height: 25,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2.4,
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                                    HexColor.mainColor),
-                                          ),
-                                        ),
                                   Image.asset(
                                     "resources/images/common/rchain_logo_red.png",
                                     fit: BoxFit.cover,
@@ -169,7 +157,7 @@ class _AssetCardState extends State<AssetCard>
                               final data = ClipboardData(
                                   text: viewModel.currentWallet.address);
                               await Clipboard.setData(data);
-                              showToast(tr("copy"));
+                              SmartDialog.showToast(tr("copy"));
                             },
                           ),
                           Text(

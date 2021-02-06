@@ -6,7 +6,7 @@ import 'package:easy_localization/public.dart';
 import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 @FFRoute(name: "capo://icapo.app/balance/receive")
@@ -122,7 +122,8 @@ class ReceivePage extends StatelessWidget {
                             final data =
                                 ClipboardData(text: viewModel.revAddress);
                             await Clipboard.setData(data);
-                            showToast(tr("copy"), position: ToastPosition.top);
+                            SmartDialog.showToast(tr("copy"),
+                                alignment: Alignment.topCenter);
                           },
                           color: HexColor.mainColor,
                           child: Icon(

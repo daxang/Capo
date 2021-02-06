@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @FFRoute(name: "capo://icapo.app/settings/about/privacy_security")
@@ -33,7 +33,7 @@ class PrivacySecurityPage extends StatelessWidget {
                     return;
                   } else if (href.startsWith("capo://icapo.app/")) {
                     String routeUrl = href +
-                        "?revAddress=11112mmfnqD3UgtpEAmFxVfU6g26W7fdyFgS6dNUpk9ycS2GXYU3pL&donate=true";
+                        "?revAddress=11112iqhk6msUmVeUCNWJP6gaTfckeAYGJfnHP62NmjaM8qcrH6BXb&donate=true";
                     Navigator.pushNamed(context, routeUrl);
                   }
                 },
@@ -97,7 +97,7 @@ class PrivacySecurityPage extends StatelessWidget {
                 onPressed: () async {
                   final data = ClipboardData(text: copyContent);
                   await Clipboard.setData(data);
-                  showToast(tr("transaction_detail.copy_hint"));
+                  SmartDialog.showToast(tr("transaction_detail.copy_hint"));
                   Navigator.pop(context);
                 },
               ),
@@ -136,7 +136,7 @@ class PrivacySecurityPage extends StatelessWidget {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      showToast('Could not launch $url');
+      SmartDialog.showToast('Could not launch $url');
     }
   }
 }

@@ -1,4 +1,3 @@
-import 'package:capo/modules/common/dialog/capo_textfield_dialog.dart';
 import 'package:capo/modules/settings/settings_modules/node_settings/view/validator/view_model/validator_view_model.dart';
 import 'package:capo/provider/provider_widget.dart';
 import 'package:easy_localization/public.dart';
@@ -16,7 +15,7 @@ class NodeSettingValidatorPage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(44),
         child: AppBar(
-          title: Text(tr("settings.note_settings.validator_page.title"),
+          title: Text(tr("settings.node_settings.validator_page.title"),
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
         ),
       ),
@@ -49,7 +48,7 @@ class NodeSettingValidatorPage extends StatelessWidget {
                               color: Theme.of(context).cardColor,
                               child: ListTile(
                                 title: Text(tr(
-                                    "settings.note_settings.validator_page.auto_selected")),
+                                    "settings.node_settings.validator_page.auto_selected")),
                                 onTap: () {
                                   viewModel.cellTapped(
                                       section: section, row: row);
@@ -136,9 +135,9 @@ class NodeSettingValidatorPage extends StatelessWidget {
 //                                padding: const EdgeInsets.all(16.0),
 //                                child: Text(section == 0
 //                                    ? tr(
-//                                        "settings.note_settings.validator_page.official")
+//                                        "settings.node_settings.validator_page.official")
 //                                    : tr(
-//                                        "settings.note_settings.validator_page.custom")),
+//                                        "settings.node_settings.validator_page.custom")),
 //                              ));
 //                        },
                       )
@@ -156,7 +155,7 @@ class NodeSettingValidatorPage extends StatelessWidget {
       builder: (BuildContext context) => CupertinoAlertDialog(
         title: Column(
           children: <Widget>[
-            Text(tr("settings.note_settings.validator_page.delete_node")),
+            Text(tr("settings.node_settings.validator_page.delete_node")),
             Text(
               nodeUrl,
               style: TextStyle(fontSize: 15),
@@ -209,7 +208,7 @@ class NodeSettingValidatorPage extends StatelessWidget {
                     width: double.infinity,
                     child: Center(
                         child: Text(
-                      tr("settings.note_settings.validator_page.add_custom_node"),
+                      tr("settings.node_settings.validator_page.add_custom_node"),
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     )),
@@ -232,7 +231,7 @@ class NodeSettingValidatorPage extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: Center(
                       child: Text(
-                        tr("settings.note_settings.validator_page.warning"),
+                        tr("settings.node_settings.validator_page.warning"),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -253,7 +252,7 @@ class NodeSettingValidatorPage extends StatelessWidget {
               //                 pressedOpacity: 0.8,
               //                 color: Color.fromARGB(255, 51, 118, 184),
               //                 child: Text(
-              //                   tr("settings.note_settings.validator_page.understood"),
+              //                   tr("settings.node_settings.validator_page.understood"),
               //                   style: Theme.of(context).textTheme.button,
               //                 ),
               //                 onPressed: () {
@@ -277,9 +276,9 @@ class NodeSettingValidatorPage extends StatelessWidget {
   //       builder: (_) {
   //         return CapoTextFieldDialog(
   //           topTitle:
-  //               tr("settings.note_settings.validator_page.text_dialog.title"),
+  //               tr("settings.node_settings.validator_page.text_dialog.title"),
   //           labelText: tr(
-  //               "settings.note_settings.validator_page.text_dialog.label_text"),
+  //               "settings.node_settings.validator_page.text_dialog.label_text"),
   //           hint: "icapo.app:40401",
   //           inputCallback: (text) {
   //             viewModel.addCustomNode(text);

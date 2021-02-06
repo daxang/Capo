@@ -3,14 +3,12 @@ import 'dart:core';
 import 'package:capo/modules/common/view/loading.dart';
 import 'package:capo/utils/capo_utils.dart';
 import 'package:capo/utils/dialog/capo_dialog_utils.dart';
-import 'package:capo/utils/wallet_view_model.dart';
 import 'package:capo_core_dart/capo_core_dart.dart';
 import 'package:easy_localization/public.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FromPrivateKeyViewModel with ChangeNotifier {
@@ -88,7 +86,9 @@ class FromPrivateKeyViewModel with ChangeNotifier {
       return;
     }
     Navigator.of(context).pop();
-    showToastWidget(Loading(
+
+    SmartDialog.show(
+        widget: Loading(
       widget: Icon(
         Icons.check,
         size: 40,
@@ -97,43 +97,11 @@ class FromPrivateKeyViewModel with ChangeNotifier {
       text: tr("wallet.restore.from_private_key.success"),
     ));
 
-    showToastWidget(
-      Container(
-        width: 130.0,
-        height: 130.0,
-        decoration: ShapeDecoration(
-          color: Theme.of(context).cardColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
-            ),
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Icon(
-              Icons.check,
-              size: 40,
-              color: HexColor.mainColor,
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
-              child: FittedBox(
-                child: Text(
-                  tr("wallet.restore.from_private_key.success"),
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
     Navigator.pushNamedAndRemoveUntil(
         context, "capo://icapo.app/tabbar", (Route<dynamic> route) => false);
+
+    await Future.delayed(Duration(seconds: 2));
+    SmartDialog.dismiss();
   }
 
   bool checkInput() {

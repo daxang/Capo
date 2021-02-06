@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_xupdate/update_entity.dart';
@@ -10,6 +8,8 @@ import 'package:version/version.dart';
 import 'app_info.dart';
 
 const bool inProduction = const bool.fromEnvironment("dart.vm.product");
+final GlobalKey<NavigatorState> capoNavigatorKey =
+    new GlobalKey<NavigatorState>();
 
 Locale capoAppDeviceLocale;
 
@@ -21,6 +21,11 @@ String get versionUpdateUrl {
     return "https://icapo.app";
 //    return "http://10.0.0.2:5000";
   }
+}
+
+BuildContext get currentContext {
+  BuildContext context = capoNavigatorKey.currentState.overlay.context;
+  return context;
 }
 
 Future<UpdateEntity> fetchUpdateEntity() async {

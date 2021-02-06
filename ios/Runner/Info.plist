@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>10026</string>
+	<string>10032</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>itms-beta</string>

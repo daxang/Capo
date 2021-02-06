@@ -9,7 +9,6 @@ class CardViewModel extends ChangeNotifier {
     return walletViewModel.currentWallet;
   }
 
-  bool isFinishLoading = false;
   CardViewModel();
   getWalletViewModel(BuildContext context) {
     walletViewModel = Provider.of<WalletViewModel>(context);
@@ -17,14 +16,8 @@ class CardViewModel extends ChangeNotifier {
   }
 
   Future getBalance({bool showLoading = true}) async {
-    if (showLoading) {
-      isFinishLoading = false;
-    }
     notifyListeners();
     await walletViewModel.getBalance().then((_) {
-      if (showLoading) {
-        isFinishLoading = true;
-      }
       notifyListeners();
     });
   }

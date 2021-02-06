@@ -1,5 +1,7 @@
+import 'package:capo/dapp_browser/dapp_model/dapp_model.dart';
 import 'package:capo/modules/common/dialog/password_dialog.dart';
 import 'package:capo/modules/common/view/loading.dart';
+import 'package:capo/utils/dialog/call_contract_bottom_sheet_view.dart';
 import 'package:capo/utils/wallet_view_model.dart';
 import 'package:capo_core_dart/capo_core_dart.dart';
 import 'package:easy_localization/public.dart';
@@ -9,8 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../capo_utils.dart';
-
-typedef PrivateKeyCallback = void Function(String);
 
 class CapoDialogUtils {
   static void showCupertinoDialog(
@@ -61,11 +61,14 @@ class CapoDialogUtils {
                   .catchError((error) {
                 decryptError = error;
                 Navigator.pop(buildContext);
+                Navigator.pop(buildContext);
                 showErrorDialog(error: error, context: buildContext);
               });
+
               if (decryptError != null) {
                 return;
               }
+              Navigator.pop(buildContext);
               Navigator.pop(buildContext);
               if (decryptSuccess != null) {
                 decryptSuccess(privateKey);
@@ -114,8 +117,147 @@ class CapoDialogUtils {
             widget: CupertinoActivityIndicator(
               radius: 13,
             ),
-            text: tip,
+            text: tip ?? " ",
           );
         });
+  }
+
+  static Future<bool> showAccessBottomSheet(
+      {@required DappInfoModel dAppInfo, @required String accessDesc}) async {
+    BuildContext context = currentContext;
+    bool isAccess = await showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Stack(
+          children: <Widget>[
+            Container(
+              height: 320 + MediaQuery.of(context).padding.bottom,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16, 30, 16, 0),
+                  child: Column(
+                    children: <Widget>[
+                      Image.network(
+                        dAppInfo.icon ?? null,
+                        alignment: Alignment.center,
+                        height: 60,
+                        width: 60,
+                      ),
+                      Container(
+                          height: 40,
+                          child: Center(
+                              child: Text(
+                            dAppInfo.name ?? "",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 18),
+                          ))),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                          height: 50,
+                          child: Center(
+                              child: Text(
+                            (dAppInfo.name ?? "") + " " + accessDesc,
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 14),
+                            textAlign: TextAlign.center,
+                          ))),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Expanded(
+                            child: CupertinoButton(
+                                color: Color.fromARGB(255, 226, 236, 246),
+                                padding: EdgeInsets.all(16),
+                                pressedOpacity: 0.8,
+                                child: Text(
+                                  tr("DApp_browser.reject"),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .button
+                                      .apply(
+                                          color: Color.fromARGB(
+                                              255, 51, 118, 184)),
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context, false);
+                                }),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: CupertinoButton(
+                                color: Color.fromARGB(255, 51, 118, 184),
+                                padding: EdgeInsets.all(16),
+                                pressedOpacity: 0.8,
+                                child: Text(
+                                  tr("DApp_browser.confirm"),
+                                  style: Theme.of(context).textTheme.button,
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context, true);
+                                }),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )
+          ],
+        );
+      },
+    );
+    if (isAccess != null && isAccess) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> showCallContractAccessBottomSheet(
+      {@required DappInfoModel dAppInfo,
+      @required String accessDesc,
+      @required PrivateKeyCallback decryptSuccess}) async {
+    BuildContext context = currentContext;
+    bool isAccess = await showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Container(
+          height: 320 + MediaQuery.of(context).viewInsets.bottom,
+          child: CallContractBottomSheetView(
+            dAppInfo: dAppInfo,
+            accessDesc: accessDesc,
+            decryptSuccess: decryptSuccess,
+          ),
+        );
+      },
+    );
+    if (isAccess != null && isAccess) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

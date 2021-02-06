@@ -3,7 +3,7 @@ import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 @FFRoute(name: "capo://icapo.app/settings/wallets/detail/export_mnemonic")
 class ExportMnemonicPage extends StatelessWidget {
@@ -135,7 +135,7 @@ class ExportMnemonicPage extends StatelessWidget {
             onPressed: () async {
               final data = ClipboardData(text: mnemonic);
               await Clipboard.setData(data);
-              showToast(
+              SmartDialog.showToast(
                   tr("settings.wallets.detail.export_mnemonic_page.copied"));
             },
           ),

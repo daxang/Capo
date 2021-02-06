@@ -58,6 +58,8 @@ class WalletDetailViewModel extends ChangeNotifier {
                   .exportPrivateKey(password: password)
                   .then((String privateKey) {
                 Navigator.pop(context);
+                Navigator.pop(context);
+
                 Navigator.pushNamed(context,
                     "capo://icapo.app/settings/wallets/detail/export_private_key?privateKey=$privateKey");
               }).catchError((error) {
@@ -80,6 +82,7 @@ class WalletDetailViewModel extends ChangeNotifier {
                   context: context,
                   tip: tr("settings.wallets.detail.exporting"));
               wallet.exportMnemonic(password).then((String mnemonic) {
+                Navigator.pop(context);
                 Navigator.pop(context);
                 Navigator.pushNamed(context,
                     "capo://icapo.app/settings/wallets/detail/export_mnemonic?mnemonic=$mnemonic");
@@ -104,6 +107,7 @@ class WalletDetailViewModel extends ChangeNotifier {
                     tip: tr("settings.wallets.detail.exporting"));
                 bool isVerisy = await wallet.verifyPassword(password);
                 if (isVerisy) {
+                  Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.pushNamed(context,
                       "capo://icapo.app/settings/wallets/detail/export_keystore?keystore=${wallet.keystore.export()}");
@@ -136,6 +140,7 @@ class WalletDetailViewModel extends ChangeNotifier {
                   } else {
                     Navigator.pop(context);
                     Navigator.pop(context);
+                    Navigator.pop(context);
                   }
                 } else {
                   Navigator.pop(context);
@@ -144,6 +149,7 @@ class WalletDetailViewModel extends ChangeNotifier {
                       error: error, context: context);
                 }
               }).catchError((error) {
+                Navigator.pop(context);
                 Navigator.pop(context);
                 CapoDialogUtils.showErrorDialog(error: error, context: context);
               });

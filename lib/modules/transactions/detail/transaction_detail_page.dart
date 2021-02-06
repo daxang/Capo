@@ -6,8 +6,8 @@ import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:intl/intl.dart';
-import 'package:oktoast/oktoast.dart';
 
 @FFRoute(name: "capo://icapo.app/transactions/detail")
 class TransactionDetail extends StatefulWidget {
@@ -140,9 +140,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
 //              style: Theme.of(context).textTheme.caption,
 //            ),
 //          ),
-          Divider(
-            height: 2,
-          ),
+
           ListTile(
             onTap: () {
               showBottomSheet(context, transaction.toAddr);
@@ -268,7 +266,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
                 onPressed: () async {
                   final data = ClipboardData(text: copyContent);
                   await Clipboard.setData(data);
-                  showToast(tr("transaction_detail.copy_hint"));
+                  SmartDialog.showToast(tr("transaction_detail.copy_hint"));
                   Navigator.pop(context);
                 },
               ),

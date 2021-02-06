@@ -54,6 +54,8 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
   - Flutter (1.0.0)
+  - flutter_jsbridge_plugin (0.0.1):
+    - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -106,17 +108,21 @@ PODS:
   - r_scan (0.0.1):
     - Flutter
   - secp256k1 (0.2.7)
+  - share (0.0.1):
+    - Flutter
   - shared_preferences (0.0.1):
     - Flutter
-  - sqflite (0.0.1):
+  - sqflite (0.0.2):
     - Flutter
-    - FMDB (~> 2.7.2)
+    - FMDB (>= 2.7.5)
   - TokenCoreCapo (1.0.6):
     - BigInt
     - CoreBitcoin
     - CryptoSwift
     - secp256k1
   - url_launcher (0.0.1):
+    - Flutter
+  - webview_flutter (0.0.1):
     - Flutter
 
 DEPENDENCIES:
@@ -128,6 +134,7 @@ DEPENDENCIES:
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - flutter_jsbridge_plugin (from `.symlinks/plugins/flutter_jsbridge_plugin/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - libscrypt (from `https://github.com/matteozero/libscrypt.git`)
   - OpenSSL-Universal (from `https://github.com/matteozero/OpenSSL-Universal.git`)
@@ -136,10 +143,12 @@ DEPENDENCIES:
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - r_scan (from `.symlinks/plugins/r_scan/ios`)
   - secp256k1 (from `https://github.com/matteozero/secp256k1.git`)
+  - share (from `.symlinks/plugins/share/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - TokenCoreCapo (from `https://github.com/matteozero/TokenCoreCapo.git`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
   trunk:
@@ -173,6 +182,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+  flutter_jsbridge_plugin:
+    :path: ".symlinks/plugins/flutter_jsbridge_plugin/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
   libscrypt:
@@ -189,6 +200,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/r_scan/ios"
   secp256k1:
     :git: https://github.com/matteozero/secp256k1.git
+  share:
+    :path: ".symlinks/plugins/share/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   sqflite:
@@ -197,6 +210,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/matteozero/TokenCoreCapo.git
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
+  webview_flutter:
+    :path: ".symlinks/plugins/webview_flutter/ios"
 
 CHECKOUT OPTIONS:
   BigInt:
@@ -235,6 +250,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_jsbridge_plugin: d4797308930960f65e3536c8a645039b2083004e
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GoogleAppMeasurement: 966e88df9d19c15715137bb2ddaf52373f111436
   GoogleDataTransport: b7f406340a291370045a270c599e53c6fa6ec20f
@@ -250,11 +266,13 @@ SPEC CHECKSUMS:
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   r_scan: ff1d53ccf15e760a9b244da3bbf3c5ec7bd763b4
   secp256k1: 3b26f535f812c47ab0e70813a02474d93dc1ded4
+  share: 0b2c3e82132f5888bccca3351c504d0003b3b410
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
-  sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   TokenCoreCapo: 888f38b1f59b2520156762d5b20f63d04bd8de71
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
+  webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
 PODFILE CHECKSUM: 5d2f8cd7c4da3218d67212a55c1dd61b0a326196
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

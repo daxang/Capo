@@ -9,7 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:rnode_grpc_dart/rnode_grpc_dart.dart';
 
@@ -141,13 +141,13 @@ class SendViewModel extends ChangeNotifier {
             okTapped: () {
               FocusScope.of(buildContext).requestFocus(FocusNode());
               if (fromDonate) {
-                showToast(tr("sendPage.thanks_donate"));
+                SmartDialog.showToast(tr("sendPage.thanks_donate"));
                 Future.delayed(Duration(seconds: 2), () {
-                  Navigator.pop(buildContext);
+                  SmartDialog.dismiss();
                 });
                 return;
               }
-              Navigator.pop(buildContext);
+              // Navigator.pop(buildContext);
             });
       }
     }).catchError((error) {
@@ -240,10 +240,10 @@ class SendViewModel extends ChangeNotifier {
       }
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
-        showToast(tr("appError.cameraPermission"));
+        SmartDialog.showToast(tr("appError.cameraPermission"));
       }
     } on FormatException {
-      showToast(tr("appError.nothingScanned"));
+      SmartDialog.showToast(tr("appError.nothingScanned"));
     } catch (_) {}
   }
 
@@ -337,6 +337,8 @@ class SendViewModel extends ChangeNotifier {
                                 buildContext: buildContext,
                                 tip: tr("sendPage.signing"),
                                 decryptSuccess: (String privateKey) {
+                                  // Navigator.pop(context);
+                                  // SmartDialog.dismiss();
                                   doDeploy(privateKey);
                                 });
                           },

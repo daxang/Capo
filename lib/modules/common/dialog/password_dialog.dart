@@ -60,7 +60,7 @@ class _State extends State<PasswordWidget> {
   _handlePwd() {
     final FormFieldState<String> passwordField = _passwordFieldKey.currentState;
     if (_validatePassword()) {
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
       widget.okClick(passwordField.value);
     }
   }

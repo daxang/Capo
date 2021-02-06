@@ -5,7 +5,7 @@ import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 @FFRoute(name: "capo://icapo.app/settings/wallets/detail")
 class WalletDetailPage extends StatelessWidget {
@@ -162,8 +162,9 @@ class WalletDetailPage extends StatelessWidget {
                             onTap: () async {
                               await Clipboard.setData(ClipboardData(
                                   text: viewModel.wallet.address));
-                              showToast(tr("settings.wallets.detail.copied"),
-                                  position: ToastPosition.bottom);
+                              SmartDialog.showToast(
+                                  tr("settings.wallets.detail.copied"),
+                                  alignment: Alignment.bottomCenter);
                             },
                             title: Text(
                                 tr("settings.wallets.detail.copy_address")))),

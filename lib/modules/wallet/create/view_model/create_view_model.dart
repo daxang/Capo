@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'package:bip39/bip39.dart' as bip39;
+import 'package:capo_token_core_plugin/capo_token_core_plugin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -18,9 +18,10 @@ class CreateWalletViewModel with ChangeNotifier {
   bool isPasswordAvailable = true;
   bool isRepeatPasswordMatch = true;
   bool _disposed = false;
-  final String mnemonic = bip39.generateMnemonic();
+  String mnemonic;
 
   CreateWalletViewModel() {
+    getRandomMnemonic();
     isButtonAvailableObservable
         .distinct()
         .doOnEach((value) => isButtonAvailable = value.value)
@@ -41,6 +42,10 @@ class CreateWalletViewModel with ChangeNotifier {
         .distinct()
         .doOnEach((observable) => repeatPasswordString = observable.value)
         .listen((_) {});
+  }
+
+  void getRandomMnemonic() async {
+    this.mnemonic = await CapoTokenCorePlugin.randomMnemonic;
   }
 
   Stream<bool> get isButtonAvailableObservable => Rx.combineLatest3(

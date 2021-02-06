@@ -57,36 +57,37 @@ class CreateWalletGuidePage extends StatelessWidget {
                 right: 16,
                 child: Column(
                   children: <Widget>[
+                    // Row(
+                    // children: <Widget>[
+                    // Expanded(
+                    //   child: CupertinoButton(
+                    //     padding: EdgeInsets.all(16),
+                    //     pressedOpacity: 0.8,
+                    //     color: Color.fromARGB(255, 51, 118, 184),
+                    //     child: Text(
+                    //       tr("wallet.guide.create"),
+                    //       style: Theme.of(context).textTheme.button,
+                    //     ),
+                    //     onPressed: () {
+                    //       Navigator.pushNamed(
+                    //           context, "capo://icapo.app/wallet/create");
+                    //     },
+                    //   ),
+                    // ),
+                    // ],
+                    // ),
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: CupertinoButton(
                             padding: EdgeInsets.all(16),
                             pressedOpacity: 0.8,
+                            // color: Colors.transparent,
+
                             color: Color.fromARGB(255, 51, 118, 184),
                             child: Text(
-                              tr("wallet.guide.create"),
-                              style: Theme.of(context).textTheme.button,
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, "capo://icapo.app/wallet/create");
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: CupertinoButton(
-                            padding: EdgeInsets.all(16),
-                            pressedOpacity: 0.8,
-                            color: Colors.transparent,
-                            child: Text(
                               tr("wallet.guide.restore"),
-                              style: Theme.of(context).textTheme.button.apply(
-                                  color: Color.fromARGB(255, 51, 118, 184)),
+                              style: Theme.of(context).textTheme.button,
                             ),
                             onPressed: () {
                               Navigator.pushNamed(

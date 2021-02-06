@@ -1,3 +1,4 @@
+import 'package:capo/dapp_browser/dapp_browser.dart';
 import 'package:capo/modules/settings/home/setting_page.dart';
 import 'package:capo/modules/transactions/transactions_page.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -5,7 +6,7 @@ import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 import '../balance/view/balance_page.dart';
 
@@ -24,6 +25,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
   final List<Widget> _children = [
     BalanceHomePage(),
     TransactionsPage(),
+    DAppBrowserPage(),
     SettingsPage()
   ];
 
@@ -59,14 +61,15 @@ class _BottomTabBarState extends State<BottomTabBar> {
     DateTime lastPopTime;
     final items = [
       BottomNavigationBarItem(
-          title: Text(tr('bottomTabBar.balance')),
+          label: tr('bottomTabBar.balance'),
           icon: const Icon(Icons.account_balance)),
       BottomNavigationBarItem(
-          title: Text(tr('bottomTabBar.transactions')),
+          label: tr('bottomTabBar.transactions'),
           icon: const Icon(Icons.transform)),
       BottomNavigationBarItem(
-          title: Text(tr('bottomTabBar.settings')),
-          icon: const Icon(Icons.settings)),
+          label: tr('bottomTabBar.browser'), icon: const Icon(Icons.apps)),
+      BottomNavigationBarItem(
+          label: tr('bottomTabBar.settings'), icon: const Icon(Icons.settings)),
     ];
     return WillPopScope(
       onWillPop: () async {
@@ -74,7 +77,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
             DateTime.now().difference(lastPopTime) > Duration(seconds: 2)) {
           lastPopTime = DateTime.now();
           //实现toast
-          showToast(tr("exit_hint"), duration: Duration(seconds: 2));
+          SmartDialog.showToast(tr("exit_hint"));
         } else {
           lastPopTime = DateTime.now();
           // 退出app
