@@ -67,6 +67,7 @@ class FromPrivateKeyViewModel with ChangeNotifier {
       });
 
   Future btnTapped(context) async {
+    privateKeyString = privateKeyString.trim();
     if (!checkInput()) return;
     CapoDialogUtils.showProcessIndicator(
         context: context, tip: tr("wallet.restore.from_mnemonic.importing"));
@@ -105,6 +106,13 @@ class FromPrivateKeyViewModel with ChangeNotifier {
   }
 
   bool checkInput() {
+    if (privateKeyString.length != 64) {
+      final mnemonicInvalid = AppError(type: AppErrorType.privateKeyInvalid);
+      CapoDialogUtils.showErrorDialog(
+          error: mnemonicInvalid, context: currentContext);
+
+      return false;
+    }
     if (walletPasswordString.length < 8) {
       isPasswordAvailable = false;
       notifyListeners();

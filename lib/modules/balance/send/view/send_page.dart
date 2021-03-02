@@ -82,10 +82,7 @@ class SendPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Icon(
-                    IconData(0xeb1f, fontFamily: 'iconfont'),
-                    size: 16,
-                  ),
+                  Icon(Icons.photo_outlined, size: 16),
                   Text(
                     tr('sendPage.scan'),
                     style: TextStyle(fontSize: 16),

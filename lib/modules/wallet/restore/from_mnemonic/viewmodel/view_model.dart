@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:capo/modules/common/view/loading.dart';
+import 'package:capo/utils/capo_utils.dart';
 import 'package:capo/utils/dialog/capo_dialog_utils.dart';
 import 'package:capo_core_dart/capo_core_dart.dart';
 import 'package:easy_localization/public.dart';
@@ -66,6 +67,8 @@ class FromMnemonicViewModel with ChangeNotifier {
       });
 
   Future btnTapped(context) async {
+    mnemonicString = mnemonicString.trimLeft().trimRight();
+
     if (!checkInput()) return;
     CapoDialogUtils.showProcessIndicator(
         context: context, tip: tr("wallet.restore.from_mnemonic.importing"));
@@ -77,7 +80,13 @@ class FromMnemonicViewModel with ChangeNotifier {
         .catchError((error) {
       importError = error;
       Navigator.of(context).pop();
-      CapoDialogUtils.showErrorDialog(error: error, context: context);
+      if (importError is AppError) {
+        CapoDialogUtils.showErrorDialog(error: importError, context: context);
+      } else {
+        final mnemonicInvalid = AppError(type: AppErrorType.mnemonicInvalid);
+        CapoDialogUtils.showErrorDialog(
+            error: mnemonicInvalid, context: context);
+      }
     });
 
     if (importError != null) {
@@ -100,6 +109,13 @@ class FromMnemonicViewModel with ChangeNotifier {
   }
 
   bool checkInput() {
+    List<String> wordList = mnemonicString.split(" ");
+    if (wordList.length != 12) {
+      final mnemonicInvalid = AppError(type: AppErrorType.mnemonicInvalid);
+      CapoDialogUtils.showErrorDialog(
+          error: mnemonicInvalid, context: currentContext);
+      return false;
+    }
     if (walletPasswordString.length < 8) {
       isPasswordAvailable = false;
       notifyListeners();

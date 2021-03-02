@@ -11,7 +11,7 @@ description: RChain Mobile Wallet
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.3.1
+version: 0.3.3
 
 environment:
   sdk: ">2.10.0 <3.0.0"
@@ -22,24 +22,22 @@ dependencies:
   cupertino_icons:
 
     #github
-  capo_core_dart:
-     git: https://github.com/matteozero/Capo_Core_Dart.git
-
 #  capo_core_dart:
-#    path: /Users/Matteo/Dev/Capo/Capo_Core_Dart
+#     git: https://github.com/matteozero/Capo_Core_Dart.git
 
-  capo_token_core_plugin:
-    git: https://github.com/matteozero/capo_token_core_plugin.git
+  capo_core_dart:
+    path: /Users/Matteo/Dev/Capo/packages/Capo_Core_Dart
+
 #  capo_token_core_plugin:
-#     path: /Users/matteo/Desktop/Capo/capo_token_core_plugin
+#    git: https://github.com/matteozero/capo_token_core_plugin.git
+  capo_token_core_plugin:
+     path: /Users/Matteo/Dev/Capo/packages/capo_token_core_plugin
 
   rnode_grpc_dart:
     git: https://github.com/matteozero/rnode_grpc_dart.git
 
   flutter_jsbridge_plugin:
-    path: /Users/Matteo/Dev/Capo/packages/flutter_jsbridge_test
-
-
+    path: /Users/Matteo/Dev/Capo/packages/flutter_jsbridge
 
   rxbus:
     git: https://github.com/imphila/FlutterRxBus.git

@@ -1,10 +1,11 @@
+import 'package:capo/modules/common/protocol/protocol_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ff_annotation_route/ff_annotation_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 @FFRoute(name: "capo://icapo.app/wallet/guide")
-class CreateWalletGuidePage extends StatelessWidget {
+class CreateWalletGuidePage extends StatelessWidget with ProtocolModel {
   @override
   Widget build(BuildContext context) {
     bool showAppBar = false;
@@ -57,41 +58,50 @@ class CreateWalletGuidePage extends StatelessWidget {
                 right: 16,
                 child: Column(
                   children: <Widget>[
-                    // Row(
-                    // children: <Widget>[
-                    // Expanded(
-                    //   child: CupertinoButton(
-                    //     padding: EdgeInsets.all(16),
-                    //     pressedOpacity: 0.8,
-                    //     color: Color.fromARGB(255, 51, 118, 184),
-                    //     child: Text(
-                    //       tr("wallet.guide.create"),
-                    //       style: Theme.of(context).textTheme.button,
-                    //     ),
-                    //     onPressed: () {
-                    //       Navigator.pushNamed(
-                    //           context, "capo://icapo.app/wallet/create");
-                    //     },
-                    //   ),
-                    // ),
-                    // ],
-                    // ),
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: CupertinoButton(
                             padding: EdgeInsets.all(16),
                             pressedOpacity: 0.8,
-                            // color: Colors.transparent,
-
                             color: Color.fromARGB(255, 51, 118, 184),
                             child: Text(
-                              tr("wallet.guide.restore"),
+                              tr("wallet.guide.create"),
                               style: Theme.of(context).textTheme.button,
                             ),
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, "capo://icapo.app/wallet/restore");
+                            onPressed: () async {
+                              bool isAgree =
+                                  await showProtocolFunction(context);
+                              if (isAgree) {
+                                Navigator.pushNamed(
+                                    context, "capo://icapo.app/wallet/create");
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: CupertinoButton(
+                            padding: EdgeInsets.all(16),
+                            pressedOpacity: 0.8,
+                            color: Colors.transparent,
+
+                            // color: Color.fromARGB(255, 51, 118, 184),
+                            child: Text(
+                              tr("wallet.guide.restore"),
+                              style: Theme.of(context).textTheme.button.apply(
+                                  color: Color.fromARGB(255, 51, 118, 184)),
+                            ),
+                            onPressed: () async {
+                              bool isAgree =
+                                  await showProtocolFunction(context);
+                              if (isAgree) {
+                                Navigator.pushNamed(
+                                    context, "capo://icapo.app/wallet/restore");
+                              }
                             },
                           ),
                         )

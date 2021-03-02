@@ -30,7 +30,7 @@ flutter_ios_podfile_setup
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
-
+  
   pod 'libscrypt', :git=> 'https://github.com/matteozero/libscrypt.git'
   pod 'BigInt', :git=> 'https://github.com/matteozero/BigInt.git'
   pod 'CoreBitcoin', :git=> 'https://github.com/matteozero/CoreBitcoin.git'

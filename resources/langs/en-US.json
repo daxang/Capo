@@ -290,7 +290,7 @@
             "open": "Open",
             "terms_and_privacy":{
                 "title": "Terms & Privacy",
-                "terms": "* Capo is a mobile wallet developed for RChain. Your assets are securely stored on the RChain network, and your private key is your only asset certificate.\n *Capo don't not save your private key and mnemonic,Capo uses a password encryption algorithm to encrypt your private key and mnemonic,  your private key and mnemonic are stored on the device in the form of a keystore file.\n * It's your responsibility to backup your private key and mnemonic and keep them private, do not forget the password for your wallet. Never show your private key and mnemonic to anyone. If it's lost, forgotten or stolen, your funds can be used by the person who has your private key or mnemonic.\n * Do not jailbreak or root your phone, don’t install apps from unknown (untrusted) sources.\n* When you use a third-party DApp, the third-party DApp directly and solely assumes responsibility to you. If the DApp requires you to input sensitive information such as private keys, mnemonics, etc., please reject and report the DApp. \n* Capo is open source, you can view the source code through [GitHub](https://github.com/matteozero/Capo).\n* If you like Capo, you can tap here to [donate](capo://icapo.app/balance/send) Capo.\n##### In order to keep the decentralization feature of blockchain and to protect the security of your digital Tokens, Capo offers decentralized service which is largely different from the banking and financial institutions. Users acknowledge and accept that the Capo SHALL NOT have any responsibility to :\n**(a) store Users’ Wallet Password (the password Users set when creating or importing wallets), Private Key, Mnemonic Words or Keystore;**\n**(b) recover Users’ Wallet Password, Private Key, Mnemonic Words or Keystore;**\n**(c) freeze the wallet;**\n**(d) report the loss of wallet;**\n**(e) recover the wallet;**\n**(f) rollback transactions.** \n **If you do not agree to the terms of this agreement, you should stop using Capo immediately. If you have already downloaded Capo, please delete it now.**"
+                "terms": "* Capo is a mobile wallet developed for RChain. Your assets are securely stored on the RChain network, and your private key is your only asset certificate.\n *Capo don't not save your private key and mnemonic,Capo uses a password encryption algorithm to encrypt your private key and mnemonic,  are stored on the device in the form of a keystore file.\n * It's your responsibility to backup your private key and mnemonic and keep them private, do not forget the password for your wallet. Never show your private key and mnemonic to anyone. If it's lost, forgotten or stolen, your funds can be used by the person who has your private key or mnemonic.\n * Do not jailbreak or root your phone, don’t install apps from unknown (untrusted) sources.\n* When you use a third-party DApp, the third-party DApp directly and solely assumes responsibility to you. If the DApp requires you to input sensitive information such as private keys, mnemonics, etc., please reject and report the DApp. \n* Capo is open source, you can view the source code through [GitHub](https://github.com/matteozero/Capo).\n* If you like Capo, you can tap here to [donate](capo://icapo.app/balance/send) Capo.\n##### In order to keep the decentralization feature of blockchain and to protect the security of your digital Tokens, Capo offers decentralized service which is largely different from the banking and financial institutions. Users acknowledge and accept that the Capo SHALL NOT have any responsibility to :\n**(a) store Users’ Wallet Password (the password Users set when creating or importing wallets), Private Key, Mnemonic Words or Keystore;**\n**(b) recover Users’ Wallet Password, Private Key, Mnemonic Words or Keystore;**\n**(c) freeze the wallet;**\n**(d) report the loss of wallet;**\n**(e) recover the wallet;**\n**(f) rollback transactions.** \n **If you do not agree to the terms of this agreement, you should stop using Capo immediately. If you have already downloaded Capo, please delete it now.**"
             }
         }
     },
@@ -313,5 +313,14 @@
         "deploy_error": "Deploy failed"
 
 
-    }
+    },
+
+    "agree": "Agree",
+    "disagree": "Disagree",
+    "donateFailed": "Please donate on the Privacy and Terms page under the About page",
+    "loading": "Loading...",
+    "loading_time_out": "Loading timed out, please try again later",
+    "privateKey_invalid": "私钥无效"
+
+
 }

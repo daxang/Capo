@@ -32,11 +32,12 @@ class _DAppBrowserPageState extends State<DAppBrowserPage>
     with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
   @override
   bool get wantKeepAlive => true;
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
+
   final JsBridge _jsBridge = JsBridge();
   bool showDappBrowser = false;
   DappInfoModel dAppInfo;
+  bool onPageFinished = false;
+  WebViewController _webViewController;
 
   @override
   initState() {
@@ -45,6 +46,7 @@ class _DAppBrowserPageState extends State<DAppBrowserPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     Map map = ModalRoute.of(context).settings.arguments;
     if (map != null && map['data'] != null) {
       String data = map['data'] as String;
@@ -95,34 +97,55 @@ class _DAppBrowserPageState extends State<DAppBrowserPage>
                   ),
                 )
               : null,
-          body: WebView(
-            // https://dapp.icapo.app/dappbrowser/#
-            // http://192.168.55.149:8080/#/
-            initialUrl: showDappBrowser
-                ? dAppInfo.url
-                : "https://dapp.icapo.app/dappbrowser/#",
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController webViewController) async {
-              _jsBridge.setWebViewController(webViewController);
-              _controller.complete(webViewController);
-              registerHandler();
-            },
-            navigationDelegate: (NavigationRequest request) {
-              if (_jsBridge.handlerUrl(request.url)) {
-                return NavigationDecision.navigate;
-              }
-              return NavigationDecision.prevent;
-            },
-            onPageStarted: (url) {
-              _jsBridge.init();
-              // CapoBridge.shared().capoJSBridge.init();
-              print("onPageStarted:$url");
-            },
-            onPageFinished: (url) {
-              _jsBridge.init();
-            },
+          body: RefreshIndicator(
+            onRefresh: _refresh,
+            child: WebView(
+              // https://dapp.icapo.app/dappbrowser/#
+              // http://192.168.55.149:8080/#/
+              initialUrl: showDappBrowser
+                  ? dAppInfo.url
+                  : "https://dapp.icapo.app/dappbrowser/#",
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController webViewController) async {
+                _jsBridge.setWebViewController(webViewController);
+                _webViewController = webViewController;
+                registerHandler();
+
+                SmartDialog.showLoading(msg: tr("loading"));
+                Future.delayed(Duration(seconds: 6), () {
+                  SmartDialog.dismiss();
+                  if (!onPageFinished) {
+                    SmartDialog.showToast(tr("loading_time_out"),
+                        alignment: Alignment.center);
+                  }
+                });
+              },
+              navigationDelegate: (NavigationRequest request) {
+                if (_jsBridge.handlerUrl(request.url)) {
+                  return NavigationDecision.navigate;
+                }
+                return NavigationDecision.prevent;
+              },
+              onWebResourceError: (url) {
+                print("onWebResourceError:$url");
+              },
+              onPageStarted: (url) {
+                _jsBridge.init();
+                // CapoBridge.shared().capoJSBridge.init();
+                print("onPageStarted:$url");
+              },
+              onPageFinished: (url) {
+                onPageFinished = true;
+                _jsBridge.init();
+                SmartDialog.dismiss();
+              },
+            ),
           )),
     );
+  }
+
+  Future<void> _refresh() async {
+    return _webViewController.reload();
   }
 
   registerHandler() {
